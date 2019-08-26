@@ -41,9 +41,9 @@ class Data_Engineering:
         self.well_df = well.na.drop()
         self.well_og = well
         self.features = ["WH_P", "DH_P", "WH_T", "DH_T", "WH_choke"]
-        self.thresholds = {"WH_P": [0, 100], 
-                           "DH_P": [90, 150], 
-                           "WH_T": [0, 100], 
+        self.thresholds = {"WH_P": [0, 100],
+                           "DH_P": [90, 150],
+                           "WH_T": [0, 100],
                            "DH_T": [75, 95],
                            "WH_choke": [-1, 101]}
 
@@ -85,10 +85,10 @@ class Data_Engineering:
             Wanted start date of cropped data frame (default is "01-JAN-01 00:01")
         end : str (optional)
             Wanted end date of cropped data frame (default is "01-JAN-19 00:01")
-        date_format : str
-            String format of inputted dates (optional, default is "dd-MMM-yy HH:mm")
-        datetime_format : str
-            C standard data format for datetime (optional, default is '%d-%b-%y %H:%M')
+        date_format : str (optional)
+            String format of inputted dates (default is "dd-MMM-yy HH:mm")
+        datetime_format : str (optional)
+            C standard data format for datetime (default is '%d-%b-%y %H:%M')
         """
 
         d1 = datetime.strptime(start, datetime_format)
@@ -132,7 +132,7 @@ class Data_Engineering:
         Parameters
         ----------
         verbose : bool (optional)
-            whether to allow for verbose
+            whether to allow for verbose (default is True)
         """
         window = Window.orderBy("ts")  # Spark Window ordering data frames by time
 
@@ -187,11 +187,10 @@ class Data_Engineering:
 
         Parameters
         ----------
-        method : str
+        method : str (optional)
             Method to clean out WH_choke values. "99" entails suppressing all the data rows where the choke is lower
             than 99%. "no_choke" entails setting to None all the rows where the WH_choke value is 0 or where it is non
-            constant i.e. differential is larger than 1 or second differential is larger than 3.
-            (optional, default is '99')
+            constant i.e. differential is larger than 1 or second differential is larger than 3 (default is '99').
         """
 
         assert ("WH_choke" in self.well_df.schema.names), 'In order to clean out WH choke data, WH choke column' \
@@ -234,8 +233,9 @@ class Data_Engineering:
 
         Parameters
         ----------
-        stats : bool
-            Bool asserting whether or not to calculate means and standard deviations of each columns/variable.
+        stats : bool (optional)
+            Bool asserting whether or not to calculate means and standard deviations of each columns/variable (default
+            is True)
         kwargs :
             features : list of str
                 feature names/ column headers to include in pandas data frame pd_df attribute
@@ -376,9 +376,9 @@ def confusion_mat(cm, labels, title='Confusion Matrix', cmap='RdYlGn', **kwargs)
       Confusion matrix as outputted by Scikit Learn Confusion Matrix method.
     labels : list of str
       Labels to use on the plot of the Confusion Matrix. Must match number of rows in the confusion matrix.
-    title : str
+    title : str (optional)
       Title that will be printed above confusion matrix plot
-    cmap : str
+    cmap : str (optional)
       Colour Map of confusion matrix
     kwargs :
         figsize : tuple of int or int
