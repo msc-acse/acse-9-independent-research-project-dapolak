@@ -41,7 +41,10 @@ class Data_Engineering:
         self.well_df = well.na.drop()
         self.well_og = well
         self.features = ["WH_P", "DH_P", "WH_T", "DH_T", "WH_choke"]
-        self.thresholds = {"WH_P": [0, 100], "DH_P": [90, 150], "WH_T": [0, 100], "DH_T": [75, 95],
+        self.thresholds = {"WH_P": [0, 100], 
+                           "DH_P": [90, 150], 
+                           "WH_T": [0, 100], 
+                           "DH_T": [75, 95],
                            "WH_choke": [-1, 101]}
 
     def stats(self):
