@@ -53,14 +53,12 @@ class Slug_Detection(Data_Engineering):
 
     def clean_short_sub(self, min_df_size=300):
         """
-        Deletes entries in pandas dataframe attribute pd_df that are continuous in time for less than min_df_size
+        Deletes entries in pandas data frame attribute pd_df that are continuous in time for less than min_df_size
 
         Parameters
         ----------
-        min_df_size : int
-            Minimum size of sub data frame that will be considered forward in the analysis
-            (optional, default is 300)
-
+        min_df_size : int (optional)
+            Minimum size of sub data frame that will be considered forward in the analysis (default is 300)
         """
 
         assert hasattr(self, "pd_df"), "Pandas data frame pd_df attribute must exist"
@@ -75,7 +73,6 @@ class Slug_Detection(Data_Engineering):
                 # Drop sets of continuous data that last for less than min_df_size minutes (default 300)
                 self.pd_df = self.pd_df[self.pd_df.count_id != i]
 
-
     def sub_data(self, **kwargs):
         """
         Creates a dictionary of sub data frame that are continuous on time for over the min_df_size variable
@@ -83,12 +80,13 @@ class Slug_Detection(Data_Engineering):
         Parameters
         ----------
         kwargs
-
+            min_df_size : int
+                For clean_short_sub method. Minimum size of sub data frame that will be considered forward in the analysis
         """
-        assert hasattr(self, "pd_df")
-        assert not self.pd_df.empty
+        assert hasattr(self, "pd_df"), "Pandas data frame pd_df attribute must exist"
+        assert not self.pd_df.empty, "Pandas data frame cannot be empty"
 
-        self.sub_df_dict = {}
+        self.sub_df_dict = {}  # Create sub_df_dict attribute which will store sub data frames of continuous data
 
         self.jump()             # Group continuous data together
         self.clean_short_sub()  # Drop sets of continuous data that are too short (min_df_size)
@@ -107,8 +105,8 @@ class Slug_Detection(Data_Engineering):
 
         return
 
-
-    def slug_check(self, slug_idx, key, dict_slug_def={"time" :[60, 240], "interval" :[25, 25], "value_diff" :[2.0, 2.0]}):
+    def slug_check(self, slug_idx, key,
+                   dict_slug_def={"time" :[60, 240], "interval" :[25, 25], "value_diff" :[2.0, 2.0]}):
         """
         From a list of indices of peaks in the data, return a list of of indices of first slug, based on
         the time since the last slug peak, the time between slug peaks and the value difference between slug peaks
@@ -116,19 +114,18 @@ class Slug_Detection(Data_Engineering):
         Parameters
         ----------
         slug_idx : list of int
-            List of indices of all the peaks thought to be slugs occuring in the current dataframe
+            List of indices of all the peaks thought to be slugs occurring in the current data frame
             in the sub_df_dict attribute
         key : int
             Index of current database in sub_df_dict
         dict_slug_def : dict (optional
-            Dictionnary of values to define slugs, such a minimum time sine last first slug, minimum interval between
+            Dictionary of values to define slugs, such a minimum time sine last first slug, minimum interval between
             two slug peaks, maximum WHP difference between peaks
 
         Returns
         -------
         first_slug_idx : list of int
             List of indices of first slug peaks for current data frame in the dictionary attribute sub_df_dict
-
         """
         curr_df = self.sub_df_dict[key]  # Get current data frame from sub_df_dict dictionary
 
@@ -178,8 +175,10 @@ class Slug_Detection(Data_Engineering):
         Parameters
         ----------
         slug_diff : float (optional)
-            Minimum differential value above which an increase in WHP is assumed to be a slug peak.
-            (default is 3.0)
+            Minimum differential value above which an increase in WHP is assumed to be a slug peak (default is 3.0).
+        kwargs
+            dict_slug_def : dict
+                For slug_check method
 
         Returns
         -------
@@ -231,8 +230,7 @@ class Slug_Detection(Data_Engineering):
         """
         Formats data for classification algorithms. Splits down the sub_df_dict attribute's data frames into size_list
         sized data frame. Data frames containing first slugs, as labelled in the method label_slugs, are split right
-        before the occurrance of a first slug.
-
+        before the occurrence of a first slug.
 
         Parameters
         ----------
@@ -398,14 +396,13 @@ class Slug_Detection(Data_Engineering):
 
         Parameters
         ----------
-        test_size : float
-            Percentage of the data to include in the training set (optional, default is 0.7)
-
+        test_size : float (optional)
+            Percentage of the data to include in the training set (default is 0.3)
         """
 
         assert (test_size <= 1), "Test size must be a percentage, less than 1"
 
-        sss = StratifiedShuffleSplit(n_splits=2, test_size=test_size, random_state=0)  # Instantiate Shuffle SPlit
+        sss = StratifiedShuffleSplit(n_splits=2, test_size=test_size, random_state=0)  # Instantiate Shuffle Split
         sss.get_n_splits(self.X, self.label)
 
         train_index, test_index = sss.split(self.X, self.label)  # Split data
@@ -430,7 +427,8 @@ class Slug_Detection(Data_Engineering):
             Whether bootstrap samples are used when building decision trees. If False, the whole datset is used to
             build each tree in the Random Forest (optional, default is True)
         kwargs
-
+            test_size : float
+                For split_data method, percentage repartition of testing data
         """
 
         test_size = 0.3
@@ -491,6 +489,10 @@ class Slug_Detection(Data_Engineering):
         true_label : bool (optional)
             Whether the data used has true labels (default is True)
         kwargs
+            X_test : Pandas DataFrame
+                For user, if additional data needs to be predicted. Data frame needs to be feature vector format
+            y-test : Pandas Series or Numpy array
+                For user, labels of inputted X_test data
 
         Returns
         -------
@@ -501,7 +503,6 @@ class Slug_Detection(Data_Engineering):
         cf : array
             Confusion matrix, as created by Scikit Learn's Confusion matrix on the accuracy of the results, if
             true_label = True
-
         """
 
         # If new data is passed to be classified
@@ -541,7 +542,9 @@ class Slug_Detection(Data_Engineering):
             Maximum iteration parameter for Logistics Regression (default is 50)
         split : bool
             True for new split, False to use same split as RF model was trained on
-
+        kwargs
+            test_size : float
+                For split_data method, percentage repartition of testing data
         """
 
         # Split data into a training and testing set if new split is required
@@ -570,6 +573,10 @@ class Slug_Detection(Data_Engineering):
         true_label : bool (optional)
             Whether the data used has true labels (default is True)
         kwargs
+            X_test : Pandas DataFrame
+                For user, if additional data needs to be predicted. Data frame needs to be feature vector format
+            y-test : Pandas Series or Numpy array
+                For user, labels of inputted X_test data
 
         Returns
         -------
@@ -617,7 +624,21 @@ class Slug_Detection(Data_Engineering):
         Parameters
         ----------
         kwargs
-
+            slug_diff : float
+                 Argument of label_slugs method. Minimum WHP differential value to be assumed a slug peak
+            size_list : int
+                Argument of format_data method. Size of data frame to use for classification
+            max_clean_count : int
+                Argument of format_data method. Maximum number of data frames to create that lead to a normal flow.
+            split_num : int
+                Argument of feature_vector method. Number of splits the data frame
+            time_predict : int
+                Argument of feature_vector method. Number of minutes before slug flow.
+            percentage_significance : float
+                Argument of feature_vector method. For the significant feature, percentage value for which to state
+                an increase/decrease in the data was significant compare to the original value.
+            standardise : bool
+                Argument of feature_vector method. Whether to standardise the data or not.
         """
 
         assert hasattr(self, "pd_df"), "Pandas data frame pd_df attribute must exist"
@@ -642,9 +663,9 @@ class Slug_Detection(Data_Engineering):
         self.format_data(first_idx, size_list=size_list, max_clean_count=max_clean_count)
 
         # check for kwargs
-        window_size = 5
-        if "window_size" in kwargs.keys():
-            window_size = kwargs["window_size"]
+        split_num = 5
+        if "split_num" in kwargs.keys():
+            split_num = kwargs["window_size"]
         time_predict = 60
         if "time_predict" in kwargs.keys():
             time_predict = kwargs["time_predict"]
@@ -656,7 +677,7 @@ class Slug_Detection(Data_Engineering):
             standardise = kwargs["standardise"]
 
         # Create data feature vectors
-        self.feature_vector(split_num=window_size, time_predict=time_predict,
+        self.feature_vector(split_num=split_num, time_predict=time_predict,
                             percentage_significance=percentage_significance, standardise=standardise)
 
         return
@@ -676,7 +697,9 @@ class Slug_Detection(Data_Engineering):
             Number of examples to plot (default is 10)
         first_sample : int (optional)
             Index of the sub_df_dict to start plotting from (default is 10)
-
+        kwargs
+            slug_diff : float
+                 Argument of label_slugs method. Minimum WHP differential value to be assumed a slug peak
         """
 
         assert hasattr(self, "pd_df"), "Pandas data frame pd_df attribute must exist"
