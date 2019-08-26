@@ -1,15 +1,31 @@
+# -*- coding: utf-8 -*-
+"""
+Part of slugdetection package
+
+@author: Deirdree A Polak
+github: dapolak
+"""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from sklearn.cluster import KMeans
+
+import Data_Engineering
+
+
+
 class Slug_Labelling(Data_Engineering):
     """
     Clusters together flow types based on behaviour of variables using Unsupervised Learning
+
+    Parameters
+    ----------
+    well : Spark Data Frame
+        well data frame, includes continuous pressure and temperature data
     """
 
     def __init__(self, well):
-        """
-        Parameters
-        ----------
-        well : Spark Data Frame
-            well data frame, includes continuous pressure and temperature data
-        """
         Data_Engineering.__init__(self, well)
 
     def feature_vector(self, window_size=20, step=5, standardise=True, keep_ts=False):
@@ -19,20 +35,18 @@ class Slug_Labelling(Data_Engineering):
 
         Parameters
         ----------
-        window_size : int
-            Length of time in minutes that will be considered in the feature vectors (optional, default is 20)
-        step : int
+        window_size : int (optional)
+            Length of time in minutes that will be considered in the feature vectors (default is 20)
+        step : int (optional)
             Time step between each window of time. Can also be considered as the overlap in time. For example, if the
-            step is set to 5, a feature vector will be created each five minutes of the continuous dataset
-            (optional, default is 5)
-        standardise : bool
-            Whether to standardise the data (optional, default is True)
-        keep_ts : bool
-            Whether to keep to timestamp column (optional, default is False)
-
+            step is set to 5, a feature vector will be created each five minutes of the continuous data set (default is 5)
+        standardise : bool (optional)
+            Whether to standardise the data (default is True)
+        keep_ts : bool (optional)
+            Whether to keep to timestamp column (default is False)
         """
 
-        # save user selected window size and step as attributes for future uses
+        # Store user selected window size and step as attributes for future uses
         self.window_size = window_size
         self.step = step
 
@@ -50,37 +64,37 @@ class Slug_Labelling(Data_Engineering):
             new_features = []  # emtpy list to save new features names
             for feature_ in self.pd_df.columns:
                 if feature_ != 'ts':
-                    new_features.append(feature_ + "_" + str(i))  # create new column names for each time step
-            # fill new columns with lagged data
+                    new_features.append(feature_ + "_" + str(i))  # Create new column names for each time step
+            # Fill new columns with lagged data
             self.feature_vec[new_features] = self.feature_vec[self.features].shift(periods=-i).fillna(0)
 
-        self.feature_vec = self.feature_vec[self.window_size:]  # get rid of 0 values at the beginning
-        self.feature_vec = self.feature_vec[::self.step]  # only keep every step-th row
+        self.feature_vec = self.feature_vec[self.window_size:]  # Get rid of 0 values at the beginning
+        self.feature_vec = self.feature_vec[::self.step]        # Only keep every step-th row
 
         if not keep_ts:  # based on user entry, delete timestamp column
-            self.feature_vec = self.feature_vec.drop("ts", axis=1)  # get rid of timestamp
+            self.feature_vec = self.feature_vec.drop("ts", axis=1)  # Drop timestamp column
 
         return
 
     def Kmean_classification(self, n_labels, verbose=True):
         """
-        Classifies the data from the feature_vec attribute created in the feature_vector method in n_labels clusters.
+        Classifies the data from the feature_vec attribute in n_labels clusters.
 
         Parameters
         ----------
         n_labels : int
             Number of labels to sort the feature_vec data in (number of clusters)
-        verbose : bool
-            Whether to print results
+        verbose : bool (optional)
+            Whether to print results (default is True)
         """
 
         assert hasattr(self, "feature_vec"), "Feature vector attribute must exist"
 
-        self.n_clusters = n_labels  # set the user defined number of clustered as a class attribute
+        self.n_clusters = n_labels  # Set the user defined number of clusters as a class attribute
 
         kmeans = KMeans(n_clusters=self.n_clusters)  # Instantiate KMeans model
-        kmeans.fit(self.feature_vec)  # Fit KMeans model to feature vector data
-        self.labels = kmeans.labels_  # Set labels attribute as KMEans defined labels for the data
+        kmeans.fit(self.feature_vec)                 # Fit KMeans model to feature vector data
+        self.labels = kmeans.labels_                 # Set labels attribute as KMeans defined labels for the data
 
         if verbose:
             for i in range(self.n_clusters):
@@ -88,13 +102,13 @@ class Slug_Labelling(Data_Engineering):
                 # training data set
                 mask = self.labels == i
                 print("Cluster", i, "contains", round(len(self.feature_vec[mask]) / len(self.feature_vec) * 100, 3),
-                      "% of the data\nor", len(self.feature_vec[mask]), "points")
+                      "% of the data\nTotal of ", len(self.feature_vec[mask]), " points")
 
         return
 
     def get_labels(self):
         """
-        Get the labels of the data windows
+        Get the labels indices of the feature vector data as clusterd by KMean_Classification method.
 
         Returns
         -------
@@ -121,7 +135,7 @@ class Slug_Labelling(Data_Engineering):
         assert len(self.labels) == len(self.feature_vec), "Assert there is the same number of labels as data points"
 
         for var in data_streams:
-            assert var in self.pd_df.columns, var + "does not exist in pandas data frame attribute"
+            assert var in self.pd_df.columns, var + "must also exist in pd_df attribute"
 
         # Create figure and axis
         fig = plt.figure()
@@ -142,12 +156,13 @@ class Slug_Labelling(Data_Engineering):
         After the creation of the labels for each feature_vec, unpack the vectors into short continuous data frames
         of size window_size attribute for visualisation purposes.
 
+        Engineers should be able to visually identify the flows
+
         Returns
         -------
         unpacked_list: list of Pandas data frames
-            List of size n_labels. Eac entry in the list is a datframe containing the data for the windows of
+            List of size n_labels. Each entry in the list is a data frame containing the data for the windows of
             time clustered in one cluster.
-
         """
         assert hasattr(self, "feature_vec"), "Feature vector attribute must exist"
         assert hasattr(self, "labels"), "Attribute labels must exist"
@@ -190,13 +205,11 @@ class Slug_Labelling(Data_Engineering):
         ----------
         examples : int
             Number of feature vectors to plot in each visualisation
-
         """
         assert hasattr(self, "labels"), "Attribute labels must exist"
         assert hasattr(self, "n_clusters"), "Attribute n_clusters must exist"
 
-        # Unpack feature vector data into plottable data frame
-        unpacked_list = self.unpack_feature_vector
+        unpacked_list = self.unpack_feature_vector  # Get list of feature vectors from unpack method
 
         fig, ax = plt.subplots(self.n_clusters, 1, figsize=(15, int(3 * self.n_clusters)), constrained_layout=True)
 

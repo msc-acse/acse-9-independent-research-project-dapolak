@@ -6,6 +6,7 @@ Part of slugdetection package
 github: dapolak
 """
 import unittest
+import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
 
