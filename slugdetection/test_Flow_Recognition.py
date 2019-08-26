@@ -144,7 +144,6 @@ class Test_Flow_Recognition(unittest.TestCase):
         ### Test window label has been added correctly
         assert "window_label" in test_class.feature_vec.columns, "New column 'window_label' should have been created"
         label_list = test_class.pd_df["label"][:20].values.tolist()
-        print(test_class.feature_vec["window_label"])
         assert np.array_equal(test_class.feature_vec["window_label"].iloc[0], test_class.window_label(label_list))
 
     def test_split_data(self, spark_data):
@@ -275,7 +274,7 @@ class Test_Flow_Recognition(unittest.TestCase):
                              end="30-DEC-14 12:09")  # example interval
         test_class.data_range()
         fr_df = test_class.df_toPandas()
-        test_class.label_slugs()
+        test_class.label_slug
         test_class.feature_vector(window_size=20, step=5)
         test_class.SVM_train()
 
