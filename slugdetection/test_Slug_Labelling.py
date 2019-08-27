@@ -7,11 +7,8 @@ github: dapolak
 """
 import unittest
 import numpy as np
-import pandas as pd
-from sklearn.cluster import KMeans
 
-import Data_Engineering
-import Slug_Labelling
+from slugdetection.Slug_Labelling import Slug_Labelling
 
 
 class Test_Slug_Labelling(unittest.TestCase):

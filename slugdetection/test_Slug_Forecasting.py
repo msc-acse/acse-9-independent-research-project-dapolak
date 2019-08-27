@@ -19,11 +19,14 @@ class Test_Slug_Forecasting(unittest.TestCase):
     Unit tests class for Slug Forecasting class
     """
 
-    whp_pandas, not_station_pd = whp_pandas, not_station_pd
-
-    def test_create_class(self):
+    def test_create_class(self, whp_pandas):
         """
         Unit test for class creation
+
+        Parameters
+        ----------
+        whp_pandas : Pandas DataFrame
+            whp and ts data frame
         """
         test_class = Slug_Forecasting(whp_pandas.copy()) # Instantiate class
 
@@ -70,9 +73,16 @@ class Test_Slug_Forecasting(unittest.TestCase):
 
         assert "random" not in test_class.slug_df.columns, "In this example, random colmn should have been dropped"
 
-    def test_stationarity_check(self):
+    def test_stationarity_check(self, whp_pandas, not_station_pd):
         """
         Unit test for stationarity_check method
+
+        Parameters
+        ----------
+        whp_pandas : Pandas DataFrame
+            whp and ts data frame
+        not_station_pd : Pandas DataFrame
+            whp and ts dataframe with non stationary data
         """
         test_class = Slug_Forecasting(whp_pandas.copy()) # Instantiate class object
         test_class.stationarity_check()
@@ -87,9 +97,14 @@ class Test_Slug_Forecasting(unittest.TestCase):
         test_class.stationarity_check()
         assert test_class.station_result[0] > 0.05, "In this example, p-value should be more than 5%"
 
-    def test_split_data(self):
+    def test_split_data(self, whp_pandas):
         """
         Unit test for split_data method
+
+        Parameters
+        ----------
+        whp_pandas : Pandas DataFrame
+            whp and ts data frame
         """
         test_class = Slug_Forecasting(whp_pandas.copy())
         test_class.stationarity_check()
@@ -111,9 +126,14 @@ class Test_Slug_Forecasting(unittest.TestCase):
         except AssertionError:
             pass
 
-    def test_ARIMA_model(self):
+    def test_ARIMA_model(self, whp_pandas):
         """
         Unit test for ARIMA_model method
+
+        Parameters
+        ----------
+        whp_pandas : Pandas DataFrame
+            whp and ts data frame
         """
         test_class = Slug_Forecasting(whp_pandas.copy())
         test_class.stationarity_check()
@@ -122,9 +142,14 @@ class Test_Slug_Forecasting(unittest.TestCase):
         test_class.ARIMA_model(1, 0, 1)  # Fit results
         assert hasattr(test_class, "fit_results"), "fit_results attribute must have been created"
 
-    def test_error_metrics(self):
+    def test_error_metrics(self, whp_pandas):
         """
         Unit test for error_metrics method
+
+        Parameters
+        ----------
+        whp_pandas : Pandas DataFrame
+            whp and ts data frame
         """
         test_class = Slug_Forecasting(whp_pandas.copy())
         test_class.stationarity_check()
@@ -152,9 +177,14 @@ class Test_Slug_Forecasting(unittest.TestCase):
         assert r2 < 1.0, "Coefficient of Determination r2 should be less than 1"
         assert np.sqrt(mse) == rmse, "Square rooted mean squared error should equal root mean squared error"
 
-    def test_ARIMA_pred(self):
+    def test_ARIMA_pred(self, whp_pandas):
         """
         Unit test for error_metrics method
+
+        Parameters
+        ----------
+        whp_pandas : Pandas DataFrame
+            whp and ts data frame
         """
         test_class = Slug_Forecasting(whp_pandas.copy())
         test_class.stationarity_check()
@@ -162,4 +192,5 @@ class Test_Slug_Forecasting(unittest.TestCase):
         test_class.ARIMA_model(1, 0, 1)
         test_class.ARIMA_pred(pred_time=60)
         assert hasattr(test_class, "forecast"), "Forecast attribute must have been created"
+
 
