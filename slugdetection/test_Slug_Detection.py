@@ -121,16 +121,15 @@ class Test_Slug_Detection(unittest.TestCase):
             well data frame
         """
         # Standard Data Engineering steps
-        test_class = Slug_Detection(data_spark)
+        test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="18-SEP-16 09:09")  # example interval
         test_class.data_range()
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
         test_class.sub_data()
 
-        ## Test that slug_check returns right value
-        ## Test 1
-
+        ## Test 1 : Test that slug_check returns right value
+        ##
         # Create fake dataframe
         datetime_format = '%d-%b-%y %H:%M'  # datetime date format
         base = datetime.strptime("01-JAN-16 09:09", datetime_format)  # Create datetime type timestamp
@@ -153,9 +152,9 @@ class Test_Slug_Detection(unittest.TestCase):
 
         assert len(first) == 1, "First slug index list should only contain one value in this example"
 
-        ## Test 2
-
-        # Create fake dataframe
+        ## Test 2 : Test that slug_check returns right value
+        ##
+        # Create fake data frame
         datetime_format = '%d-%b-%y %H:%M'  # datetime date format
         base = datetime.strptime("01-JAN-16 09:09", datetime_format)  # Create datetime type timestamp
         date_list = [[base + timedelta(minutes=x)] for x in range(2300)]  # Create list of timestamps
