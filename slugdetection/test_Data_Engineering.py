@@ -10,7 +10,7 @@ import unittest
 import numpy as np
 from pyspark.sql import functions as F
 
-import Data_Engineering
+import slugdetection.Data_Engineering as Data_Engineering
 
 
 class Test_Data_Engineering(unittest.TestCase):
