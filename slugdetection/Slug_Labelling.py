@@ -25,7 +25,7 @@ class Slug_Labelling(Data_Engineering):
     """
 
     def __init__(self, well):
-        Data_Engineering.Data_Engineering.__init__(self, well)
+        super().__init__(well)
 
     def feature_vector(self, window_size=20, step=5, standardise=True, keep_ts=False):
         """
@@ -224,3 +224,7 @@ class Slug_Labelling(Data_Engineering):
                         ax[i].set_ylabel("Pressure//Temperature//Choke")
         fig.legend()
         display(fig)
+
+
+def add(a, b):
+    return a+b

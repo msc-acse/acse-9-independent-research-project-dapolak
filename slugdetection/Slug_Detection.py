@@ -31,7 +31,7 @@ class Slug_Detection(Data_Engineering):
 
     """
     def __init__(self, well):
-        Data_Engineering.Data_Engineering.__init__(self, well)
+        super().__init__(well)
 
     def jump(self):
         """

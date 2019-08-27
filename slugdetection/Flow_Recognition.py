@@ -25,7 +25,7 @@ class Flow_Recognition(Data_Engineering):
     """
 
     def __init__(self, well):
-        Data_Engineering.Data_Engineering.__init__(self, well)
+        super().__init__(well)
 
     def label_slugs(self, slug_diff=3, choke_diff=1, pre_slug_period=40):
         """
