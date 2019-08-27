@@ -13,8 +13,6 @@ import matplotlib.pyplot as plt
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window
 
-print(10)
-
 class Data_Engineering:
     """
     Tools to crop and select the raw well data. Converts data from a Spark dataframe to Pandas.

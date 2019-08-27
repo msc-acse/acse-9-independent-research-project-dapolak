@@ -162,3 +162,4 @@ class Test_Slug_Forecasting(unittest.TestCase):
         test_class.ARIMA_model(1, 0, 1)
         test_class.ARIMA_pred(pred_time=60)
         assert hasattr(test_class, "forecast"), "Forecast attribute must have been created"
+
