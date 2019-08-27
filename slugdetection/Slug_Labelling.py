@@ -11,10 +11,10 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.cluster import KMeans
 
-import slugdetection.Data_Engineering
+import slugdetection.Data_Engineering as Data_Engineering
 
 
-class Slug_Labelling(slugdetection.Data_Engineering):
+class Slug_Labelling(Data_Engineering):
     """
     Clusters together flow types based on behaviour of variables using Unsupervised Learning
 
@@ -25,7 +25,7 @@ class Slug_Labelling(slugdetection.Data_Engineering):
     """
 
     def __init__(self, well):
-        slugdetection.Data_Engineering.__init__(self, well)
+        Data_Engineering.Data_Engineering.__init__(self, well)
 
     def feature_vector(self, window_size=20, step=5, standardise=True, keep_ts=False):
         """
