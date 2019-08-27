@@ -18,7 +18,9 @@ class test_DataEngineering(unittest.TestCase):
     Unit tests class for Data Engineering class
     """
 
-    def test_create_class(self, spark_data):
+    spark_data = spark_data
+
+    def test_create_class(self):
         """
         Unit test for class creation
         Parameters
@@ -30,7 +32,7 @@ class test_DataEngineering(unittest.TestCase):
         assert len(test_class.well_df.head(1)) != 0, "Assert data frame is not empty"
         # Pyspark has no clear empty attribute
 
-    def test_reset_well_df(self, spark_data):
+    def test_reset_well_df(self):
         """
         Unit test for reset_well_df method
         Parameters
@@ -51,7 +53,7 @@ class test_DataEngineering(unittest.TestCase):
         # Test that rows have been resetted
         assert a <= b, "In this example, the number of rows should increase after resetting"
 
-    def test_timeframe(self, spark_data):
+    def test_timeframe(self):
         """
         Unit test for timeframe method
         Parameters
@@ -75,7 +77,7 @@ class test_DataEngineering(unittest.TestCase):
         except AssertionError:
             pass
 
-    def test_set_thresholds(self, spark_data):
+    def test_set_thresholds(self):
         """
         Unit test for set_thresholds method
         Parameters
@@ -116,7 +118,7 @@ class test_DataEngineering(unittest.TestCase):
         except AssertionError:
             pass
 
-    def test_data_range(self, spark_data):
+    def test_data_range(self):
         """
         Unit test for set_thresholds method
         Parameters
@@ -145,7 +147,7 @@ class test_DataEngineering(unittest.TestCase):
             print(f, "upper", counts.collect()[0][0])
             # assert counts.collect()[0][0] == 0, "No out of range values for " + str(f)
 
-    def test_clean_choke(self, spark_data):
+    def test_clean_choke(self):
         """
         Unit test for clean_choke method
         Parameters
@@ -201,7 +203,7 @@ class test_DataEngineering(unittest.TestCase):
         assert counts_pre.collect()[0][4] <= counts_post.collect()[0][4], "The number of None values in DHT column " \
                                                                           "should increase"
 
-    def test_df_toPandas(self, spark_data):
+    def test_df_toPandas(self):
         """
         Unit test for df_toPandas method
         Parameters
@@ -216,7 +218,7 @@ class test_DataEngineering(unittest.TestCase):
         assert hasattr(test_class, "pd_df"), "pd_df attribute must have been created"
         assert not test_class.pd_df.empty, "pd_df attribute is not empty"
 
-    def test_standardise(self, spark_data):
+    def test_standardise(self):
         """
         Unit test for df_toPandas method
         Parameters
