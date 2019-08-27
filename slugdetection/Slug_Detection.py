@@ -16,10 +16,10 @@ from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 
-import Data_Engineering
+import slugdetection.Data_Engineering
 
 
-class Slug_Detection(Data_Engineering):
+class Slug_Detection(slugdetection.Data_Engineering):
     """
     Classifies intervals of pressure and temperature data as interval leading to a slug flow or intervals
     leading to a normal flow.
@@ -31,7 +31,7 @@ class Slug_Detection(Data_Engineering):
 
     """
     def __init__(self, well):
-        Data_Engineering.__init__(self, well)
+        slugdetection.Data_Engineering.__init__(self, well)
 
     def jump(self):
         """

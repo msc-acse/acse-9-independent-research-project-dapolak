@@ -8,8 +8,8 @@ github: dapolak
 
 name = "slugdetection"
 
-import Data_Engineering
-import Slug_Labelling
-import Flow_Recognition
-import Slug_Detection
-import SLug_Forecatig
+import slugdetection.Data_Engineering
+import slugdetection.Slug_Labelling
+import slugdetection.Flow_Recognition
+import slugdetection.Slug_Detection
+import slugdetection.Slug_Forecasting

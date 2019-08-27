@@ -11,9 +11,10 @@ from sklearn.svm import SVC
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import confusion_matrix
 
-import Data_Engineering
+import slugdetection.Data_Engineering
 
-class Flow_Recognition(Data_Engineering):
+
+class Flow_Recognition(slugdetection.Data_Engineering):
     """
     Classifies different flow types within an oil well using feature vectors and classification algorithms
 
@@ -24,7 +25,7 @@ class Flow_Recognition(Data_Engineering):
     """
 
     def __init__(self, well):
-        Data_Engineering.__init__(self, well)
+        slugdetection.Data_Engineering.__init__(self, well)
 
     def label_slugs(self, slug_diff=3, choke_diff=1, pre_slug_period=40):
         """
