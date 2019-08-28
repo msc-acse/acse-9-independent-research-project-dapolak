@@ -41,7 +41,7 @@ class Test_Slug_Labelling(unittest.TestCase):
         # Standard slug labelling data engineering
         test_class = Slug_Labelling(spark_data)
         test_class.timeframe(start="01-JAN-14 09:09", end="02-JAN-14 09:09")  # Small interval, for efficiency purposes
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.df_toPandas()
 
         window_size = 5
@@ -83,17 +83,17 @@ class Test_Slug_Labelling(unittest.TestCase):
         # Standard slug labelling data engineering up to KMeans_classification method
         test_class = Slug_Labelling(spark_data)
         test_class.timeframe(start="01-JAN-14 09:09", end="02-JAN-14 09:09")
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.df_toPandas()
         test_class.feature_vector(window_size=10, step=5)
 
         ### Test five clusters can be created
-        test_class.Kmean_classification(n_labels=5)
+        test_class.Kmean_classification(n_labels=5, verbose=False)
         assert len(test_class.labels) == len(test_class.feature_vec), "There must be as many labels as feature vectors"
         assert len(np.unique(test_class.labels)) <= 5, "There should be five or less labels present"
 
         ### Test two clusters can be created
-        test_class.Kmean_classification(n_labels=2)
+        test_class.Kmean_classification(n_labels=2, verbose=False)
         assert len(test_class.labels) == len(test_class.feature_vec), "There must be as many labels as feature vectors"
         assert len(np.unique(test_class.labels)) == 2, "There should be two or less labels present"
 
@@ -109,10 +109,10 @@ class Test_Slug_Labelling(unittest.TestCase):
         # Standard slug labelling data engineering up to KMeans_classification method
         test_class = Slug_Labelling(spark_data)
         test_class.timeframe(start="01-JAN-14 09:09", end="02-JAN-14 09:09")
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.df_toPandas()
         test_class.feature_vector(window_size=10, step=5)
-        test_class.Kmean_classification(n_labels=2)
+        test_class.Kmean_classification(n_labels=2, verbose=False)
 
         assert len(test_class.get_labels()) == len(test_class.labels)
         assert all(test_class.get_labels() == test_class.labels)
@@ -129,10 +129,10 @@ class Test_Slug_Labelling(unittest.TestCase):
         # Standard slug labelling data engineering up to label_plot method
         test_class = Slug_Labelling(spark_data)
         test_class.timeframe(start="01-JAN-14 09:09", end="02-JAN-14 09:09")
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.df_toPandas()
         test_class.feature_vector(window_size=10, step=5)
-        test_class.Kmean_classification(n_labels=2)
+        test_class.Kmean_classification(n_labels=2, verbose=False)
 
         try:
             test_class.label_plot(["WH_P", "DH_P"])  # need 3 variables
@@ -168,10 +168,10 @@ class Test_Slug_Labelling(unittest.TestCase):
         # Standard slug labelling data engineering up to unpack_feature_vector method
         test_class = Slug_Labelling(spark_data)
         test_class.timeframe(start="01-JAN-14 09:09", end="02-JAN-14 09:09")  # one day worth of data
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.df_toPandas()
         test_class.feature_vector(window_size=10, step=5)
-        test_class.Kmean_classification(n_labels=2)
+        test_class.Kmean_classification(n_labels=2, verbose=False)
 
         unpacked_list = test_class.unpack_feature_vector
 

@@ -9,10 +9,12 @@ github: dapolak
 
 import numpy as np
 import pandas as pd
-
-import Slug_Forecasting
+import math
 
 import unittest
+
+from slugdetection.Slug_Forecasting import Slug_Forecasting
+
 
 class Test_Slug_Forecasting(unittest.TestCase):
     """
@@ -22,7 +24,6 @@ class Test_Slug_Forecasting(unittest.TestCase):
     def test_create_class(self, whp_pandas):
         """
         Unit test for class creation
-
         Parameters
         ----------
         whp_pandas : Pandas DataFrame
@@ -71,20 +72,19 @@ class Test_Slug_Forecasting(unittest.TestCase):
 
         test_class = Slug_Forecasting(whp_pandas_extravar.copy())
 
-        assert "random" not in test_class.slug_df.columns, "In this example, random colmn should have been dropped"
+        assert "random" not in test_class.slug_df.columns, "In this example, random column should have been dropped"
 
     def test_stationarity_check(self, whp_pandas, not_station_pd):
         """
         Unit test for stationarity_check method
-
         Parameters
         ----------
         whp_pandas : Pandas DataFrame
             whp and ts data frame
         not_station_pd : Pandas DataFrame
-            whp and ts dataframe with non stationary data
+            whp and ts data frame with non stationary data
         """
-        test_class = Slug_Forecasting(whp_pandas.copy()) # Instantiate class object
+        test_class = Slug_Forecasting(whp_pandas.copy())  # Instantiate class object
         test_class.stationarity_check()
 
         assert hasattr(test_class, "station_result"), "Station_result attribute is created"
@@ -100,7 +100,6 @@ class Test_Slug_Forecasting(unittest.TestCase):
     def test_split_data(self, whp_pandas):
         """
         Unit test for split_data method
-
         Parameters
         ----------
         whp_pandas : Pandas DataFrame
@@ -129,7 +128,6 @@ class Test_Slug_Forecasting(unittest.TestCase):
     def test_ARIMA_model(self, whp_pandas):
         """
         Unit test for ARIMA_model method
-
         Parameters
         ----------
         whp_pandas : Pandas DataFrame
@@ -139,13 +137,12 @@ class Test_Slug_Forecasting(unittest.TestCase):
         test_class.stationarity_check()
         test_class.split_data()
 
-        test_class.ARIMA_model(1, 0, 1)  # Fit results
+        test_class.ARIMA_model(1, 0, 1, show=False)  # Fit results
         assert hasattr(test_class, "fit_results"), "fit_results attribute must have been created"
 
     def test_error_metrics(self, whp_pandas):
         """
         Unit test for error_metrics method
-
         Parameters
         ----------
         whp_pandas : Pandas DataFrame
@@ -154,33 +151,36 @@ class Test_Slug_Forecasting(unittest.TestCase):
         test_class = Slug_Forecasting(whp_pandas.copy())
         test_class.stationarity_check()
         test_class.split_data()
-        test_class.ARIMA_model(1, 0, 1)
+        test_class.ARIMA_model(1, 0, 1, show=False)
 
         # Test error metrics parameter entry
-        assert len(test_class.error_metrics(error="other")) == 0, "Nothing is returned"
+        assert test_class.error_metrics(error="other", verbose=False) == None, "Nothing is returned"
 
         # Test values returned for fitting regression
-        assert len(test_class.error_metrics(error="fit")) == 4, "Three variables must be returned in this example"
-        mse, rmse, r2 = test_class.error_metrics(error="fit")
+        assert len(test_class.error_metrics(error="fit", verbose=False)) == 4, \
+            "Three variables must be returned in this example"
+        mape, mse, rmse, r2 = test_class.error_metrics(error="fit", verbose=False)
 
         # test stats:
         assert r2 < 1.0, "Coefficient of Determination r2 should be less than 1"
-        assert np.sqrt(mse) == rmse, "Square rooted mean squared error should equal root mean squared error"
+        assert np.isclose(math.sqrt(mse), rmse, atol=0.01), \
+            "Square rooted mean squared error should equal root mean squared error"
 
-        test_class.ARIMA_pred()  # Forecast values
+        test_class.ARIMA_pred(pred_time=60, show=False)  # Forecast values
 
         # Test values returned for forecasting regression
-        assert len(test_class.error_metrics(error="pred")) == 4, "Three variables must be returned in this example"
-        mse, rmse, r2 = test_class.error_metrics(error="pred")
+        assert len(test_class.error_metrics(error="pred", verbose=False)) == 4, \
+            "Three variables must be returned in this example"
+        mape, mse, rmse, r2 = test_class.error_metrics(error="pred", verbose=False)
 
         # test stats:
         assert r2 < 1.0, "Coefficient of Determination r2 should be less than 1"
-        assert np.sqrt(mse) == rmse, "Square rooted mean squared error should equal root mean squared error"
+        assert np.isclose(math.sqrt(mse), rmse, atol=0.01), \
+            "Square rooted mean squared error should equal root mean squared error"
 
     def test_ARIMA_pred(self, whp_pandas):
         """
         Unit test for error_metrics method
-
         Parameters
         ----------
         whp_pandas : Pandas DataFrame
@@ -189,8 +189,6 @@ class Test_Slug_Forecasting(unittest.TestCase):
         test_class = Slug_Forecasting(whp_pandas.copy())
         test_class.stationarity_check()
         test_class.split_data()
-        test_class.ARIMA_model(1, 0, 1)
+        test_class.ARIMA_model(1, 0, 1, show=False)
         test_class.ARIMA_pred(pred_time=60)
         assert hasattr(test_class, "forecast"), "Forecast attribute must have been created"
-
-

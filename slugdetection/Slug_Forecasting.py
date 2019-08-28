@@ -20,12 +20,10 @@ from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 class Slug_Forecasting:
     """
     Trains an ARIMA model to forecast slug flow in offshore oil wells.
-
     Parameters
     ----------
     slug_flow_whp : Pandas DataFrame
         well data frame, including a WHP and ts column. Must be presenting slug flow characteristics
-
     Attributes
     ----------
     slug_df : Pandas DataFrame
@@ -45,7 +43,6 @@ class Slug_Forecasting:
     def stationarity_check(self, diff=0):
         """
         Checks whether slug_df attribute is stationary by applying the Augmented Dickey-Fuller test.
-
         Parameters
         ----------
         diff : int (optional)
@@ -53,12 +50,12 @@ class Slug_Forecasting:
             the ARIMA model training (default is 0)
         """
 
-        slugs = self.slug_df["WH_P"].copy() # Get copy of slug df for testing
+        slugs = self.slug_df["WH_P"].copy()  # Get copy of slug df for testing
 
-        for i in range(diff):   # Apply differencing
+        for i in range(diff):  # Apply differencing
             slugs = slugs.diff()[1:]
 
-        self.station_result = adfuller(slugs) # Apply augmented dickey-fuller test
+        self.station_result = adfuller(slugs)  # Apply augmented dickey-fuller test
 
         # Print results for user information
         print('ADF Statistic: %f' % self.station_result[0])
@@ -107,10 +104,9 @@ class Slug_Forecasting:
         display(plot_pacf(self.y_train, lags=lags))
         return
 
-    def ARIMA_model(self, p, d, q):
+    def ARIMA_model(self, p, d, q, show=True):
         """
         Instantiate, fits and plots best fit of an ARIMA model with the parameters p, d and q.
-
         Parameters
         ----------
         p : int
@@ -124,28 +120,26 @@ class Slug_Forecasting:
         assert hasattr(self, "y_train"), "Data must have been split"
 
         ARIMA_model = ARIMA(self.y_train, order=(p, d, q))  # Instantiate ARIMA model with parameters and y_train data
-        self.fit_results = ARIMA_model.fit(disp=-1) # Fit ARIMA model
+        self.fit_results = ARIMA_model.fit(disp=-1)  # Fit ARIMA model
+        if show:
+            # Plot fit
+            f, ax = plt.subplots(1, 1, figsize=(12, 5))
+            ax.plot(self.y_train, "C0-", label="Actual")
+            ax.plot(self.fit_results.fittedvalues, 'r-', label="Fitted")
+            ax.set_title('ARIMA model (%i, %i, %i) for WHP' % (p, d, q))
+            ax.set_xlabel("Time")
+            ax.set_ylabel("Pressure in BarG")
+            ax.legend()
+            display(f)
 
-        # Plot fit
-        f, ax = plt.subplots(1, 1, figsize=(12, 5))
-        ax.plot(self.y_train, "C0-", label="Actual")
-        ax.plot(self.fit_results.fittedvalues, 'r-', label="Fitted")
-        ax.set_title('ARIMA model (%i, %i, %i) for WHP' % (p, d, q))
-        ax.set_xlabel("Time")
-        ax.set_ylabel("Pressure in BarG")
-        ax.legend()
-        display(f)
-
-    def error_metrics(self, error):
+    def error_metrics(self, error, verbose=True):
         """
         Computes error metrics for the error of the regression as compared to the true data
-
         Parameters
         ----------
         error : str
             Keyword to compute error metrics for the ARIMA model regression for the training data, or the forecast for
             the testing data. Takes "fit" ot "pred".
-
         Returns
         -------
         mape : float
@@ -167,29 +161,29 @@ class Slug_Forecasting:
             assert hasattr(self, "forecast"), "Forecast attribute must have been created"
             assert len(self.forecast) <= len(self.y_pred)
             forecast = self.forecast
-            true = self.y_pred
+            true = self.y_pred[:len(forecast)]
             resid = forecast - true["WH_P"]
         else:
             print("Parameter not recognised. Try 'fit' or 'pred'")
             return
 
-        mse = mean_squared_error(true, forecast)
-        rmse = np.sqrt(sum(resid**2))
-        r2 = r2_score(true, forecast)
+        mse = round(mean_squared_error(true, forecast), 3)
+        rmse = round(math.sqrt(sum(resid ** 2) / len(true)), 3)
+        r2 = round(r2_score(true, forecast), 3)
         mape = resid / true["WH_P"]
-        mape = mape.mean() * 100
+        mape = round(mape.mean() * 100, 3)
 
-        print("Mean Absolute Percentage Error: ", mape)
-        print("Mean Squared Error: %f" % mse)
-        print("Root Mean Squared Error: %4.f" % rmse)
-        print("R2 Determination: %f" % r2)
+        if verbose:
+            print("Mean Absolute Percentage Error: ", mape)
+            print("Mean Squared Error: %f" % mse)
+            print("Root Mean Squared Error: %f" % rmse)
+            print("R2 Determination: %f" % r2)
 
         return mape, mse, rmse, r2
 
     def error_metrics_plot(self, error):
         """
         Plots infographics on the error of the ARIMA model regression
-
         Parameters
         ----------
         error : str
@@ -207,13 +201,13 @@ class Slug_Forecasting:
             assert hasattr(self, "forecast"), "Forecast attribute must have been created"
             assert len(self.forecast) <= len(self.y_pred)
             forecast = self.forecast
-            true = self.y_pred
+            true = self.y_pred[:len(forecast)]
             resid = forecast - true["WH_P"]
         else:
             print("Parameter not recognised. Try 'fit' or 'pred'")
             return
 
-        mape, mse, rmse, r2 = self.error_metrics(error=error)
+        mape, mse, rmse, r2 = self.error_metrics(error=error, verbose=False)
 
         fig, ax = plt.subplots(2, 2, constrained_layout=True)
 
@@ -255,10 +249,10 @@ class Slug_Forecasting:
 
         display(fig)
 
-    def ARIMA_pred(self, pred_time, y_true=True):
+
+    def ARIMA_pred(self, pred_time, y_true=True, show=True):
         """
         Forecasts and plots the expected values
-
         Instantiate, fits and plots best fit of an ARIMA model with the parameters p, d and q.
         Parameters
         ----------
@@ -271,14 +265,15 @@ class Slug_Forecasting:
         assert hasattr(self, "fit_results")
         self.forecast, se, conf = self.fit_results.forecast(pred_time, alpha=0.05)  # 95% conf
 
-        fig, ax = plt.subplots(figsize=(20, 5))
+        if show:
+            fig, ax = plt.subplots(figsize=(20, 5))
 
-        ax.plot(self.y_train, label='Training')
-        if y_true:
-            ax.plot(self.y_pred[:pred_time], label='Actual')
-        ax.plot(self.y_pred.index[:pred_time], self.forecast, label='Forecast')
-        ax.fill_between(self.y_pred.index[:pred_time], conf[:, 0], conf[:, 1],
-                        color='k', alpha=.15, label="95 % Confidence")
-        ax.set_title('Forecast vs Actuals')
-        ax.legend()
-        display(fig)
+            ax.plot(self.y_train, label='Training')
+            if y_true:
+                ax.plot(self.y_pred[:pred_time], label='Actual')
+            ax.plot(self.y_pred.index[:pred_time], self.forecast, label='Forecast')
+            ax.fill_between(self.y_pred.index[:pred_time], conf[:, 0], conf[:, 1],
+                            color='k', alpha=.15, label="95 % Confidence")
+            ax.set_title('Forecast vs Actuals')
+            ax.legend()
+            display(fig)

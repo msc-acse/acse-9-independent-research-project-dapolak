@@ -11,8 +11,7 @@ import unittest
 import numpy as np
 import pandas as pd
 
-import Data_Engineering
-import Flow_Recognition
+from slugdetection.Flow_Recognition import Flow_Recognition
 
 class Test_Flow_Recognition(unittest.TestCase):
     """
@@ -45,7 +44,7 @@ class Test_Flow_Recognition(unittest.TestCase):
         test_class = Flow_Recognition(spark_data)
         test_class.timeframe(start="08-DEC-14 01:09",
                              end="09-DEC-14 12:09")  # known interval displaying normal flow, slugs and choked flow
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         fr_df = test_class.df_toPandas()
 
         # Test method
@@ -115,7 +114,7 @@ class Test_Flow_Recognition(unittest.TestCase):
         test_class = Flow_Recognition(spark_data)
         test_class.timeframe(start="08-DEC-14 01:09",
                              end="09-DEC-14 12:09")  # known interval displaying normal flow, slugs and choked flow
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         fr_df = test_class.df_toPandas()
         test_class.label_slugs()
 
@@ -158,7 +157,7 @@ class Test_Flow_Recognition(unittest.TestCase):
         test_class = Flow_Recognition(spark_data)
         test_class.timeframe(start="08-DEC-14 01:09",
                              end="09-DEC-14 12:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         fr_df = test_class.df_toPandas()
         test_class.label_slugs()
         test_class.feature_vector(window_size=20, step=5)
@@ -199,10 +198,10 @@ class Test_Flow_Recognition(unittest.TestCase):
         test_class = Flow_Recognition(spark_data)
         test_class.timeframe(start="08-DEC-14 01:09",
                              end="15-DEC-14 12:09")   # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         fr_df = test_class.df_toPandas()
         test_class.label_slugs()
-        test_class.feature_vector(window_size=20, step=5, keep_ts=False)
+        test_class.feature_vector(window_size=20, step=5)
         # Test method
         test_class.LogReg_train()
 
@@ -221,7 +220,7 @@ class Test_Flow_Recognition(unittest.TestCase):
         test_class = Flow_Recognition(spark_data)
         test_class.timeframe(start="08-DEC-14 01:09",
                              end="30-DEC-14 12:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         fr_df = test_class.df_toPandas()
         test_class.label_slugs()
         test_class.feature_vector(window_size=20, step=5)
@@ -250,7 +249,7 @@ class Test_Flow_Recognition(unittest.TestCase):
         test_class = Flow_Recognition(spark_data)
         test_class.timeframe(start="08-DEC-14 01:09",
                              end="30-DEC-14 12:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         fr_df = test_class.df_toPandas()
         test_class.label_slugs()
         test_class.feature_vector(window_size=20, step=5)
@@ -272,9 +271,9 @@ class Test_Flow_Recognition(unittest.TestCase):
         test_class = Flow_Recognition(spark_data)
         test_class.timeframe(start="08-DEC-14 01:09",
                              end="30-DEC-14 12:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         fr_df = test_class.df_toPandas()
-        test_class.label_slug
+        test_class.label_slug()
         test_class.feature_vector(window_size=20, step=5)
         test_class.SVM_train()
 

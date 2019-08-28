@@ -69,7 +69,7 @@ class Slug_Detection(Data_Engineering):
         counter = self.pd_df.groupby('count_id')['count_id'].count()
 
         for i in range(0, len(counter)):
-            if counter[i] < min_df_size:
+            if counter.iloc[i] < min_df_size:
                 # Drop sets of continuous data that last for less than min_df_size minutes (default 300)
                 self.pd_df = self.pd_df[self.pd_df.count_id != i]
 
@@ -214,7 +214,7 @@ class Slug_Detection(Data_Engineering):
                                               False)
 
             # Store indices of slug peaks to list
-            slug_index = curr_df.index[curr_df["point_label"] is True].tolist()
+            slug_index = curr_df.index[curr_df["point_label"] == True].tolist()
 
             # From slug_check method, compute first slug indices
             first = self.slug_check(slug_index, key)

@@ -11,8 +11,8 @@ import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
 
-import Data_Engineering
-import Slug_Detection
+from slugdetection.Slug_Detection import Slug_Detection
+
 
 import unittest
 
@@ -48,7 +48,7 @@ class Test_Slug_Detection(unittest.TestCase):
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="12-SEP-16 09:09",
                              end="18-SEP-16 09:09")  # known interval that has 3 section of data over 99% choke
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
 
@@ -69,7 +69,7 @@ class Test_Slug_Detection(unittest.TestCase):
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="12-SEP-16 09:09",
                              end="18-SEP-16 09:09")  # known interval that has 3 section of data over 99% choke
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
         test_class.jump()
@@ -93,7 +93,7 @@ class Test_Slug_Detection(unittest.TestCase):
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="12-SEP-16 09:09",
                              end="18-SEP-16 09:09")  # known interval that has 3 section of data over 99% choke
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
 
@@ -123,7 +123,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="18-SEP-16 09:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
         test_class.sub_data()
@@ -192,7 +192,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="30-SEP-16 09:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
 
@@ -242,7 +242,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="18-SEP-16 09:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
 
@@ -363,7 +363,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="18-SEP-16 09:09")  # large data sample
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
         test_class.sub_data()
@@ -401,7 +401,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps up to data_prep method
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="18-SEP-16 09:19")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
 
@@ -424,7 +424,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps up to split_data method
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="18-OCT-16 09:10")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
         test_class.data_prep()
@@ -469,7 +469,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps up to RF_train method
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="18-OCT-16 09:10")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
         test_class.data_prep()
@@ -494,7 +494,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="30-SEP-16 01:09", end="18-OCT-16 09:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
         test_class.data_prep()  # need to create X
@@ -530,7 +530,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="18-OCT-16 09:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
         test_class.data_prep()
@@ -555,7 +555,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="18-OCT-16 09:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
         test_class.data_prep()
@@ -580,7 +580,7 @@ class Test_Slug_Detection(unittest.TestCase):
         # Standard Data Engineering steps
         test_class = Slug_Detection(spark_data)
         test_class.timeframe(start="18-SEP-16 01:09", end="18-OCT-16 09:09")  # example interval
-        test_class.data_range()
+        test_class.data_range(verbose=False)
         test_class.clean_choke(method="99")
         sd_df = test_class.df_toPandas()
         test_class.data_prep()

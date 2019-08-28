@@ -224,7 +224,3 @@ class Slug_Labelling(Data_Engineering):
                         ax[i].set_ylabel("Pressure//Temperature//Choke")
         fig.legend()
         display(fig)
-
-
-def add(a, b):
-    return a+b

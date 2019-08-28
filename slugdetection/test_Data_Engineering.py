@@ -63,7 +63,7 @@ class Test_Data_Engineering(unittest.TestCase):
 
         # Test that data gets cropped
         test_class.timeframe(start="01-JAN-16 09:09", end="01-JAN-16 09:18")
-        assert test_class.well_df.count() == 9, "In this example, there is only 9 data points between the two dates"
+        assert test_class.well_df.count() == 8, "In this example, there is only 8 data points between the two dates"
 
         test_class.reset_well_df()  # Reset data frame for next test
 
@@ -86,11 +86,11 @@ class Test_Data_Engineering(unittest.TestCase):
         test_class = Data_Engineering(spark_data)
 
         # Test example thresholds
-        test_class.set_thresholds("WH_P", 1000, -200)
-        assert test_class.thresholds["WH_P"] == [-200, 1000], "In this example, [-200, 1000] are expected"
+        test_class.set_thresholds("WH_P", 1000.0, -200.0)
+        assert test_class.thresholds["WH_P"] == [-200.0, 1000.0], "In this example, [-200, 1000] are expected"
 
-        test_class.set_thresholds("random", 10, -10)
-        assert test_class.thresholds["random"] == [-10, 10], "In this example, [-10, 10] are expected"
+        test_class.set_thresholds("random", 10.0, -10.0)
+        assert test_class.thresholds["random"] == [-10.0, 10.0], "In this example, [-10, 10] are expected"
 
         # Test max is larger than min
         try:
@@ -128,7 +128,7 @@ class Test_Data_Engineering(unittest.TestCase):
 
         test_class.timeframe(start="01-JAN-16 09:09", end="01-MAR-16 09:18")  # known interval with out of range data
 
-        test_class.data_range()  # apply data range function
+        test_class.data_range(verbose=False)  # apply data range function
 
         # Lambda function to count number of time condition occurs
         cnt_cond = lambda cond: F.sum(F.when(cond, 1).otherwise(0))
@@ -137,13 +137,11 @@ class Test_Data_Engineering(unittest.TestCase):
         for f in test_class.features:
             counts = test_class.well_df.agg(
                 cnt_cond(F.col(f) <= test_class.thresholds[f][0]))
-            print(f, "lower", counts.collect()[0][0])
-            # assert counts.collect()[0][0] == 0, "No out of range values for " + str(f)
+            assert counts.collect()[0][0] == 0, "No out of range values for " + str(f)
 
             counts = test_class.well_df.agg(
                 cnt_cond(F.col(f) >= test_class.thresholds[f][1]))
-            print(f, "upper", counts.collect()[0][0])
-            # assert counts.collect()[0][0] == 0, "No out of range values for " + str(f)
+            assert counts.collect()[0][0] == 0, "No out of range values for " + str(f)
 
     def test_clean_choke(self, spark_data):
         """
@@ -241,6 +239,8 @@ class Test_Data_Engineering(unittest.TestCase):
             if f != 'ts':
                 assert np.isclose(pandas_df_z[f].mean(), 0, atol=0.01), "Mean of standardised data should be close to 0"
 
+        import random # Import random mocule
+
         # Manual standardisation test
         for f in pandas_df_z.columns:
             if f != 'ts':
@@ -251,7 +251,9 @@ class Test_Data_Engineering(unittest.TestCase):
 
                 # Randomly check values match
                 for i in range(5):
-                    val = random.randint(1, len(pandas_df))
-                    assert np.isclose(pandas_df[f].loc[val], pandas_df_z[f].loc[val], atol=0.001), \
+                    val = random.randint(1, len(pandas_df)-1)
+                    assert np.isclose(pandas_df[f].loc[val],
+                                      pandas_df_z[f].loc[val],
+                                      atol=0.001), \
                         "The two standardise values should be close"
 
