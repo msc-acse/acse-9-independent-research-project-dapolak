@@ -219,7 +219,7 @@ class Slug_Labelling(Data_Engineering):
 
         unpacked_list = self.unpack_feature_vector  # Get list of feature vectors from unpack method
 
-        fig, ax = plt.subplots(self.n_clusters, 1, figsize=(15, int(3 * self.n_clusters)), tight_layout=True)
+        fig, ax = plt.subplots(self.n_clusters, 1, figsize=(15, int(3 * self.n_clusters)), constrained_layout=True)
 
         for i in range(self.n_clusters):
             for j in range(examples):  # overlay n_examples data from each label

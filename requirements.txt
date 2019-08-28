@@ -1,6 +1,6 @@
-numpy==1.17
-pandas==0.25
-matplotlib==3.1.1
-pyspark==2.4.3
-scikitlearn==0.21.3
-statsmodel==0.10.1
+numpy==1.10
+pandas==0.24
+matplotlib==3.1.0
+pyspark==2.3.3
+scikitlearn==0.20
+statsmodel==0.9

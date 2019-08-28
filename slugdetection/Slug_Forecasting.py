@@ -227,7 +227,7 @@ class Slug_Forecasting:
 
         mape, mse, rmse, r2 = self.error_metrics(error=error, verbose=False)
 
-        fig, ax = plt.subplots(2, 2)
+        fig, ax = plt.subplots(2, 2, constrained_layout=True)
 
         # Residual
         ax[0][0].plot(resid)
