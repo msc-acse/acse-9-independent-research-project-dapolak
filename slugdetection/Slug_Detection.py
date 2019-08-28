@@ -700,6 +700,11 @@ class Slug_Detection(Data_Engineering):
         kwargs
             slug_diff : float
                  Argument of label_slugs method. Minimum WHP differential value to be assumed a slug peak
+
+        Returns
+        -------
+        : Figure
+           raw slugs figure
         """
 
         assert hasattr(self, "pd_df"), "Pandas data frame pd_df attribute must exist"
@@ -744,7 +749,7 @@ class Slug_Detection(Data_Engineering):
             ax[i].set_ylabel("Pressure in BarG")
             ax[i].legend()
 
-        display(fig)
+        return fig
 
     def plot_X(self, start=60, variables=["WH_P", "DH_P"], scaled=True, n_examples=3):
         """
@@ -761,6 +766,10 @@ class Slug_Detection(Data_Engineering):
         n_examples : int  (optional)
             Number of examples to plot (default is 3)
 
+        Returns
+        -------
+        : Figure
+           X data figure
         """
 
         assert hasattr(self, "df_list"), "df_list attribute must exist"
@@ -810,5 +819,5 @@ class Slug_Detection(Data_Engineering):
                     if plot2 == n_examples:
                         data2 = False
 
-        display(fig)
+        return fig
 

@@ -127,6 +127,10 @@ class Slug_Labelling(Data_Engineering):
         data_streams : list of str
             List of the three variables to plot the data against
 
+        Returns
+        -------
+        : Figure
+           3D kmeans figure
         """
         assert hasattr(self, "labels"), "Attribute labels must exist"
         assert hasattr(self, "feature_vec"), "Feature vector attribute must exist"
@@ -147,7 +151,7 @@ class Slug_Labelling(Data_Engineering):
         ax.set_xlabel(data_streams[0])
         ax.set_ylabel(data_streams[1])
         ax.set_zlabel(data_streams[2])
-        display(fig)
+        return fig
 
     @property
     def unpack_feature_vector(self):
@@ -204,13 +208,18 @@ class Slug_Labelling(Data_Engineering):
         ----------
         examples : int
             Number of feature vectors to plot in each visualisation
+
+        Returns
+        -------
+        : Figure
+           Overlaid clusters figure
         """
         assert hasattr(self, "labels"), "Attribute labels must exist"
         assert hasattr(self, "n_clusters"), "Attribute n_clusters must exist"
 
         unpacked_list = self.unpack_feature_vector  # Get list of feature vectors from unpack method
 
-        fig, ax = plt.subplots(self.n_clusters, 1, figsize=(15, int(3 * self.n_clusters)), constrained_layout=True)
+        fig, ax = plt.subplots(self.n_clusters, 1, figsize=(15, int(3 * self.n_clusters)), tight_layout=True)
 
         for i in range(self.n_clusters):
             for j in range(examples):  # overlay n_examples data from each label
@@ -223,4 +232,4 @@ class Slug_Labelling(Data_Engineering):
                         ax[i].grid(True, which='both')
                         ax[i].set_ylabel("Pressure//Temperature//Choke")
         fig.legend()
-        display(fig)
+        return fig

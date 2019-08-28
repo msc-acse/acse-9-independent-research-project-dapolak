@@ -113,9 +113,9 @@ class Data_Engineering:
         ----------
         variable : str
             Name of variable, for example "WH_P"
-        max : float
+        max_ : float
             Upper threshold of variable
-        min : float
+        min_ : float
             Lower threshold of variable
         """
         assert isinstance(min_, float), "Minimum threshold must be a number"
@@ -310,6 +310,11 @@ class Data_Engineering:
         kwargs :
             features: list of str
                 List of features to include in the plot
+
+        Returns
+        -------
+        : Figure
+           data plot figure
         """
 
         assert hasattr(self, "pd_df"), "Pandas data frame pd_df attribute must exist"
@@ -350,7 +355,7 @@ class Data_Engineering:
 
         for col, c in zip(self.features, colours):
             if col[-1] == "P":  # If pressure, plot on main axis
-                a, = ax.plot(self.pd_df["ts"][start:end], self.pd_df[col][start:end], c + '.', label=col)
+                a, = ax.plot(self.pd_df["ts"][start:end], self.pd_df[col][start:end], str(c) + ".", label=col)
                 ax.set_ylabel("Pressure in BarG")
                 lines.append(a)
             else:  # For other features, like Temperature and Choke, plot on secondary axis
@@ -362,7 +367,7 @@ class Data_Engineering:
         ax.grid(True, which='both')
         ax.set_title(title)
 
-        display(fig)
+        return fig
 
 
 def confusion_mat(cm, labels, title='Confusion Matrix', cmap='RdYlGn', **kwargs):
@@ -382,6 +387,11 @@ def confusion_mat(cm, labels, title='Confusion Matrix', cmap='RdYlGn', **kwargs)
     kwargs :
         figsize : tuple of int or int
             Matplotlib key word to set size of plot
+
+    Returns
+    -------
+    : Figure
+       confusion matrix figure
     """
 
     assert (len(labels) == len(cm[0])), "There must be the same number of columns in the confusion matrix as there" \
@@ -406,4 +416,4 @@ def confusion_mat(cm, labels, title='Confusion Matrix', cmap='RdYlGn', **kwargs)
                     ha="center", va="center",
                     color="white" if cm[i, j] > thresh else "black")
     fig.tight_layout()
-    display(fig)
+    return fig

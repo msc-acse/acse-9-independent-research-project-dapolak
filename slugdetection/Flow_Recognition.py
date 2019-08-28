@@ -80,7 +80,7 @@ class Flow_Recognition(Data_Engineering):
         self.pd_df["label"].loc[pre_slug] = "pre_slug"
 
         # Drop gradient columns
-        self.pd_df = self.pd_df.drop(columns=["WH_P_diff", "WH_choke_diff"], axis=1)
+        self.pd_df = self.pd_df.drop(["WH_P_diff", "WH_choke_diff"], axis=1)
 
         return
 

@@ -89,9 +89,13 @@ class Slug_Forecasting:
         ----------
         lags : int
             Number of lags to plot ACF for
+
+        Returns
+        -------
+        : Figure
+           ACF figure
         """
-        display(plot_acf(self.y_train, lags=lags))
-        return
+        return plot_acf(self.y_train, lags=lags)
 
     def partial_autocorrelation_plot(self, lags=25):
         """
@@ -100,9 +104,13 @@ class Slug_Forecasting:
         ----------
         lags : int
             Number of lags to plot PACF for
+
+        Returns
+        -------
+        : Figure
+           PACF figure
         """
-        display(plot_pacf(self.y_train, lags=lags))
-        return
+        return plot_pacf(self.y_train, lags=lags)
 
     def ARIMA_model(self, p, d, q, show=True):
         """
@@ -115,6 +123,11 @@ class Slug_Forecasting:
             ARIMA Integrated Property. As approximated by the difference value required to reach stationarity
         q : int
             ARIMA Moving Average Property. As approximated from the ACF plot.
+
+        Returns
+        -------
+        : Figure
+           ARIMA fit figure
         """
 
         assert hasattr(self, "y_train"), "Data must have been split"
@@ -130,7 +143,7 @@ class Slug_Forecasting:
             ax.set_xlabel("Time")
             ax.set_ylabel("Pressure in BarG")
             ax.legend()
-            display(f)
+            return f
 
     def error_metrics(self, error, verbose=True):
         """
@@ -189,6 +202,11 @@ class Slug_Forecasting:
         error : str
             Keyword to compute error metrics for the ARIMA model regression for the training data, or the forecast for
             the testing data. Takes "fit" ot "pred".
+
+        Returns
+        -------
+        : Figure
+           Error infographics figure
         """
         from scipy.stats import norm, gaussian_kde
 
@@ -209,7 +227,7 @@ class Slug_Forecasting:
 
         mape, mse, rmse, r2 = self.error_metrics(error=error, verbose=False)
 
-        fig, ax = plt.subplots(2, 2, constrained_layout=True)
+        fig, ax = plt.subplots(2, 2)
 
         # Residual
         ax[0][0].plot(resid)
@@ -247,7 +265,7 @@ class Slug_Forecasting:
         ax[1][1].set_ylabel("Density")
         ax2.legend()
 
-        display(fig)
+        return fig
 
 
     def ARIMA_pred(self, pred_time, y_true=True, show=True):
@@ -260,6 +278,11 @@ class Slug_Forecasting:
             Number of minutes to forecast until
         y_true : bool (optional)
             Whether true data for the forecasting interval is known (default is True)
+
+        Returns
+        -------
+        : Figure
+           ARIMA forecast figure
         """
 
         assert hasattr(self, "fit_results")
@@ -276,4 +299,4 @@ class Slug_Forecasting:
                             color='k', alpha=.15, label="95 % Confidence")
             ax.set_title('Forecast vs Actuals')
             ax.legend()
-            display(fig)
+            return fig
