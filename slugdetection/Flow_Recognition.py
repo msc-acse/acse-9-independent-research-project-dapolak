@@ -11,7 +11,7 @@ from sklearn.svm import SVC
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import confusion_matrix
 
-from slugdetection import Data_Engineering
+import Data_Engineering
 
 
 class Flow_Recognition(Data_Engineering):
