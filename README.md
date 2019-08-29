@@ -44,16 +44,19 @@ In the context of using the package in DataBricks to access the data, the wheel 
 
 In the WorkSpace tab of DataBricks, preferably in the same folder as your Python notebook, right click and select `Create>Library`. In the Create Library page, select `Upload` and `Python Whl` as shown below. The slugdetection package is now saved as a library on your local FileStores
 
+![GitHub Logo](/images/create_lib.PNG)
+Format: ![Screenshot Create Library Page on DataBricks](url)
+
 <p align="center">
   <img src="images/create_lib.PNG">
 </p>
-
+<center>**Screenshot Create Librairy Page on DataBricks**</center>
 <p align="center">
   <img src="images/lib_path.PNG">
 </p>
-![Create_Library](images/create_lib.PNG)
+<center>**Librairy File on DataBricks**</center>
 
-![Library Source](images/lib_path.PNG)
+
 
 
 
