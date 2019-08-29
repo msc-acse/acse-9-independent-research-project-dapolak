@@ -36,7 +36,7 @@ git clone https://github.com/msc-acse/acse-9-independent-research-project-dapola
 cd acse-9-independent-research-project-dapolak
 ```
 
-You can then use and run the package from a .py or Python notebook.
+You can then use and run the package from a .py or Python notebook (no command line interface).
 
 ### DataBricks Installation
 
