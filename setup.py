@@ -11,7 +11,6 @@ setuptools.setup(
     description="Slugging Detection package using feature engineering "
                 "and supervised classification for offshore oil wells.",
     long_description=long_description,
-    long_description_content_type="text/markdown",
     url="https://github.com/msc-acse/acse-9-project-plan-dapolak",
     packages=setuptools.find_packages(),
     classifiers=[

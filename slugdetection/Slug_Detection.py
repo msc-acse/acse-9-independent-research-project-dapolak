@@ -16,7 +16,7 @@ from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 
-import slugdetection.Data_Engineering as Data_Engineering
+from slugdetection import Data_Engineering
 
 
 class Slug_Detection(Data_Engineering):
