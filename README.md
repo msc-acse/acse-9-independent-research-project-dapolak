@@ -29,7 +29,14 @@ It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser 
 
 ### Local Installation
 
+Clone the repository to your device using the following line:
 
+```bash
+git clone https://github.com/msc-acse/acse-9-independent-research-project-dapolak.git
+cd acse-9-independent-research-project-dapolak
+```
+
+You can then use and run the package from a .py or Python notebook.
 
 ### DataBricks Installation
 
@@ -46,7 +53,7 @@ In the WorkSpace tab of DataBricks, preferably in the same folder as your Python
 
 There are two options from there. You must copy past the path to the library in the FileStore, by clicking Copy in the Source section and use the path to:
 - If admnistrator rights for the cluster you're running your notebook on are granted, you can install the library directly onto your cluster
-- Else, you can install the library onto your notebook directly by running the following code. Note that the cluster use cannot be optimised for ML:
+- Else, you can install the library onto your notebook directly by running the following code. Note that the cluster used cannot be optimised for ML in order for this code to run:
 
 ```python
 if "-ml-" not in runtime:
