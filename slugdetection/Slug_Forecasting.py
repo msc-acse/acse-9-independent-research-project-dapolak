@@ -43,6 +43,7 @@ class Slug_Forecasting:
     def stationarity_check(self, diff=0):
         """
         Checks whether slug_df attribute is stationary by applying the Augmented Dickey-Fuller test.
+
         Parameters
         ----------
         diff : int (optional)
@@ -148,11 +149,13 @@ class Slug_Forecasting:
     def error_metrics(self, error, verbose=True):
         """
         Computes error metrics for the error of the regression as compared to the true data
+
         Parameters
         ----------
         error : str
             Keyword to compute error metrics for the ARIMA model regression for the training data, or the forecast for
             the testing data. Takes "fit" ot "pred".
+
         Returns
         -------
         mape : float
@@ -197,6 +200,7 @@ class Slug_Forecasting:
     def error_metrics_plot(self, error):
         """
         Plots infographics on the error of the ARIMA model regression
+        
         Parameters
         ----------
         error : str
