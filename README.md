@@ -25,7 +25,7 @@ It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser 
 
 ## Documentation
 
-Documentation for this project can be found ![here](https://dapolak.github.io/acse-9-independent-research-project-dapolak/)
+Documentation for this project can be found [here](https://dapolak.github.io/acse-9-independent-research-project-dapolak/)
 
 ## Installation
 
