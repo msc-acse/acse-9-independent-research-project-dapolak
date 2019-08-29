@@ -7,15 +7,18 @@ slugdetection is a Python package created to automatically detect slug flow by c
 ## Author 
 
 Deirdree A. Polak
+
 Github: dapolak
+
 Email: deirdree.polak@gmail.com
+
 CID: 00973185
 
 ## Project Information
 
-This package was developped as part of the Applied Computational Sciences and Engineering MSc 2018-19 at Imperial College London and as part of an internship at Wintershall Dea GmbH in Germany. The project was part of the Independant Research Project ACSE-9 module.
+This package was developped as part of the Independant Research Project ACSE-9 module for the Applied Computational Sciences and Engineering MSc 2018-19 at Imperial College London and as part of an internship at Wintershall Dea GmbH in Germany.
 
-It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser from the Royal School of Mines, Imperial College London anf of Dr Meindert Dillen and Peter Kronberger from the Digital Transformation departement at Wintershall Dea GmbH. 
+It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser from the Royal School of Mines, Imperial College London anf of Dr Meindert Dillen and Peter Kronberger from Digital Transformation at Wintershall Dea GmbH. 
 
 ## Repository Structure
 
@@ -26,11 +29,44 @@ It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser 
 
 ### Local Installation
 
+Clone the repository to your device using the following line:
 
+```bash
+git clone https://github.com/msc-acse/acse-9-independent-research-project-dapolak.git
+cd acse-9-independent-research-project-dapolak
+```
+
+You can then use and run the package from a .py or Python notebook (no command line interface).
 
 ### DataBricks Installation
 
-In the context of using the package in DataBricks to access the data, the wheel file `.whl` in the `\dist` folder is to be downloaded. 
+In the context of using the package in DataBricks to access the data, the wheel file `.whl` in the `\dist` folder is to be downloaded.
+
+In the WorkSpace tab of DataBricks, preferably in the same folder as your Python notebook, right click and select `Create > Library`. In the Create Library page, select `Upload` for Library Source and `Python Whl` for Library Type as shown below. The slugdetection package is now saved as a library on your local FileStores
+
+
+<p align="center">
+  <img src="images/create_lib.PNG"><br>
+  <b>Screenshot Create Library Page on DataBricks</b>
+</p>
+<p align="center">
+  <img src="images/lib_path.PNG"><br>
+  <b>Library File on DataBricks</b>
+</p>
+
+
+
+
+
+There are two options from there. You must copy past the path to the library in the FileStore, by clicking Copy in the Source section and use the path to:
+- If admnistrator rights for the cluster you're running your notebook on are granted, you can install the library directly onto your cluster
+- Else, you can install the library onto your notebook directly by running the following code. Note that the cluster used cannot be optimised for ML in order for this code to run:
+
+```python
+if "-ml-" not in runtime:
+  dbutils.library.install("dbfs:/FileStore/.../slugdetection.whl") # FileStore location and name of package
+  dbutils.library.restartPython()
+```
 
 ## Usage
 
@@ -67,5 +103,5 @@ dbutils.library.installPyPI("pypipackage", version="version")
 
 ## License
 
-This package is licensed using a 
-[MIT](https://choosealicense.com/licenses/mit/)
+This package is licensed using an 
+[MIT](LICENSE) License
