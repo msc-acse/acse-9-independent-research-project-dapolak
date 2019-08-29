@@ -1,0 +1,304 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Slug_Forecasting &#8212; slugdetection 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/p_sphinx_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/local_fonts.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/p_sphinx_theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Requirements" href="requirements.html" />
+    <link rel="prev" title="Slug_Detection" href="Slug_Detection.html" /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+      <div class="relbar-top">
+            
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="requirements.html" title="Requirements"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Slug_Detection.html" title="Slug_Detection"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+      <li><a href="../index.html">slugdetection 1.0.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+      </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="slug-forecasting">
+<h1>Slug_Forecasting<a class="headerlink" href="#slug-forecasting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Slug_Forecasting<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-slugdetection.Slug_Forecasting"></span><p>Part of slugdetection package</p>
+<p>&#64;author: Deirdree A Polak
+github: dapolak</p>
+<dl class="class">
+<dt id="slugdetection.Slug_Forecasting.Slug_Forecasting">
+<em class="property">class </em><code class="descclassname">slugdetection.Slug_Forecasting.</code><code class="descname">Slug_Forecasting</code><span class="sig-paren">(</span><em>slug_flow_whp</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Forecasting.Slug_Forecasting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains an ARIMA model to forecast slug flow in offshore oil wells.
+:param slug_flow_whp: well data frame, including a WHP and ts column. Must be presenting slug flow characteristics
+:type slug_flow_whp: Pandas DataFrame</p>
+<dl class="attribute">
+<dt id="slugdetection.Slug_Forecasting.Slug_Forecasting.slug_df">
+<code class="descname">slug_df</code><a class="headerlink" href="#slugdetection.Slug_Forecasting.Slug_Forecasting.slug_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>well data frame, with DateTimeIndex and single WHP column.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Pandas DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Forecasting.Slug_Forecasting.ARIMA_model">
+<code class="descname">ARIMA_model</code><span class="sig-paren">(</span><em>p</em>, <em>d</em>, <em>q</em>, <em>show=True</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Forecasting.Slug_Forecasting.ARIMA_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate, fits and plots best fit of an ARIMA model with the parameters p, d and q.
+:param p: ARIMA Auto Regressive Property. As approximated from the PACF plot.
+:type p: int
+:param d: ARIMA Integrated Property. As approximated by the difference value required to reach stationarity
+:type d: int
+:param q: ARIMA Moving Average Property. As approximated from the ACF plot.
+:type q: int</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ARIMA fit figure</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Figure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Forecasting.Slug_Forecasting.ARIMA_pred">
+<code class="descname">ARIMA_pred</code><span class="sig-paren">(</span><em>pred_time</em>, <em>y_true=True</em>, <em>show=True</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Forecasting.Slug_Forecasting.ARIMA_pred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forecasts and plots the expected values
+Instantiate, fits and plots best fit of an ARIMA model with the parameters p, d and q.
+:param pred_time: Number of minutes to forecast until
+:type pred_time: int
+:param y_true: Whether true data for the forecasting interval is known (default is True)
+:type y_true: bool (optional)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ARIMA forecast figure</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Figure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Forecasting.Slug_Forecasting.autocorrelation_plot">
+<code class="descname">autocorrelation_plot</code><span class="sig-paren">(</span><em>lags=25</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Forecasting.Slug_Forecasting.autocorrelation_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots Auto Correlation figure
+:param lags: Number of lags to plot ACF for
+:type lags: int</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ACF figure</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Figure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Forecasting.Slug_Forecasting.error_metrics">
+<code class="descname">error_metrics</code><span class="sig-paren">(</span><em>error</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Forecasting.Slug_Forecasting.error_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes error metrics for the error of the regression as compared to the true data</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>error</strong> (<em>str</em>) – Keyword to compute error metrics for the ARIMA model regression for the training data, or the forecast for
+the testing data. Takes “fit” ot “pred”.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>mape</strong> (<em>float</em>) – Mean Absolute Percentage Error for the regression. The smaller the value, the better the fit</li>
+<li><strong>mse</strong> (<em>float</em>) – Mean Squared Error for the regression. The smaller error, the better the fit</li>
+<li><strong>rmse</strong> (<em>float</em>) – Root Mean Squared Error for the regression. The smaller the error the better the fit</li>
+<li><strong>r2</strong> (<em>float</em>) – Coefficient of Determination for the regression. The closer to 1, the better the fit.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Forecasting.Slug_Forecasting.error_metrics_plot">
+<code class="descname">error_metrics_plot</code><span class="sig-paren">(</span><em>error</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Forecasting.Slug_Forecasting.error_metrics_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots infographics on the error of the ARIMA model regression</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>error</strong> (<em>str</em>) – Keyword to compute error metrics for the ARIMA model regression for the training data, or the forecast for
+the testing data. Takes “fit” ot “pred”.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Error infographics figure</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Figure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Forecasting.Slug_Forecasting.partial_autocorrelation_plot">
+<code class="descname">partial_autocorrelation_plot</code><span class="sig-paren">(</span><em>lags=25</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Forecasting.Slug_Forecasting.partial_autocorrelation_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots Partial Auto Correlation figure
+:param lags: Number of lags to plot PACF for
+:type lags: int</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">PACF figure</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Figure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Forecasting.Slug_Forecasting.split_data">
+<code class="descname">split_data</code><span class="sig-paren">(</span><em>train_size=180</em>, <em>predict_size=60</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Forecasting.Slug_Forecasting.split_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits data into a training set and a testing set. Split is performed chronologically.
+:param train_size: Number of minutes to train the data on
+:type train_size: int
+:param predict_size: Number of minutes to calculate prediction error on
+:type predict_size: int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Forecasting.Slug_Forecasting.stationarity_check">
+<code class="descname">stationarity_check</code><span class="sig-paren">(</span><em>diff=0</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Forecasting.Slug_Forecasting.stationarity_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether slug_df attribute is stationary by applying the Augmented Dickey-Fuller test.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>diff</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – If data is not stationary, can be used to stationarise it. Value should be used as the d parameter in
+the ARIMA model training (default is 0)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Slug_Forecasting</a><ul>
+<li><a class="reference internal" href="#id1">Slug_Forecasting</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/mods/Slug_Forecasting.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+      <div class="relbar-bottom">
+            
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="requirements.html" title="Requirements"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Slug_Detection.html" title="Slug_Detection"
+             >previous</a> &nbsp; &nbsp;</li>
+      <li><a href="../index.html">slugdetection 1.0.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, dapolak.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+      <!-- PSphinxTheme -->
+  </body>
+</html>

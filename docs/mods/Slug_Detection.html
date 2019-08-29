@@ -1,0 +1,539 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Slug_Detection &#8212; slugdetection 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/p_sphinx_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/local_fonts.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/p_sphinx_theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Slug_Forecasting" href="Slug_Forecasting.html" />
+    <link rel="prev" title="Flow_Recognition" href="Flow_Recognition.html" /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+      <div class="relbar-top">
+            
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Slug_Forecasting.html" title="Slug_Forecasting"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Flow_Recognition.html" title="Flow_Recognition"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+      <li><a href="../index.html">slugdetection 1.0.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+      </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="slug-detection">
+<h1>Slug_Detection<a class="headerlink" href="#slug-detection" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Slug_Detection<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-slugdetection.Slug_Detection"></span><p>Part of slugdetection package</p>
+<p>&#64;author: Deirdree A Polak
+github: dapolak</p>
+<dl class="class">
+<dt id="slugdetection.Slug_Detection.Slug_Detection">
+<em class="property">class </em><code class="descclassname">slugdetection.Slug_Detection.</code><code class="descname">Slug_Detection</code><span class="sig-paren">(</span><em>well</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classifies intervals of pressure and temperature data as interval leading to a slug flow or intervals
+leading to a normal flow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>well</strong> (<em>Spark Data Frame</em>) – well data frame, includes continuous pressure and temperature data</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.LogReg_pred">
+<code class="descname">LogReg_pred</code><span class="sig-paren">(</span><em>true_label=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.LogReg_pred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict data labels from trained Logistics Regression model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>true_label</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – Whether the data used has true labels (default is True)</li>
+<li><strong>kwargs</strong> – <dl class="docutils">
+<dt>X_test <span class="classifier-delimiter">:</span> <span class="classifier">Pandas DataFrame</span></dt>
+<dd>For user, if additional data needs to be predicted. Data frame needs to be feature vector format</dd>
+<dt>y-test <span class="classifier-delimiter">:</span> <span class="classifier">Pandas Series or Numpy array</span></dt>
+<dd>For user, labels of inputted X_test data</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>pred</strong> (<em>array</em>) – prediction labels for the test data</li>
+<li><strong>proba</strong> (<em>array</em>) – prediction probababilities for the test data</li>
+<li><strong>score</strong> (<em>float</em>) – Accuracy score of the predictions, if true_label = True</li>
+<li><strong>cf</strong> (<em>array</em>) – Confusion matrix, as created by Scikit Learn’s Confusion matrix on the accuracy of the results, if
+true_label = True</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.LogReg_train">
+<code class="descname">LogReg_train</code><span class="sig-paren">(</span><em>top_features=[]</em>, <em>C=0.01</em>, <em>max_iter=50</em>, <em>split=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.LogReg_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train Logistics Regression model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>top_features</strong> (<em>list of str</em><em> (</em><em>optional</em><em>)</em>) – List of the top features names. If list not empty, the Logistics Regression model will only be trained using
+the listed features. (default is [] meaning all features)</li>
+<li><strong>C</strong> (<em>float</em><em> (</em><em>optional</em><em>)</em>) – Regularization parameter for Logitics Regression (default is 0.01)</li>
+<li><strong>max_iter</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Maximum iteration parameter for Logistics Regression (default is 50)</li>
+<li><strong>split</strong> (<em>bool</em>) – True for new split, False to use same split as RF model was trained on</li>
+<li><strong>kwargs</strong> – <dl class="docutils">
+<dt>test_size <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>For split_data method, percentage repartition of testing data</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.RF_predict">
+<code class="descname">RF_predict</code><span class="sig-paren">(</span><em>true_label=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.RF_predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict data labels from trained Random Forest model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>true_label</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – Whether the data used has true labels (default is True)</li>
+<li><strong>kwargs</strong> – <dl class="docutils">
+<dt>X_test <span class="classifier-delimiter">:</span> <span class="classifier">Pandas DataFrame</span></dt>
+<dd>For user, if additional data needs to be predicted. Data frame needs to be feature vector format</dd>
+<dt>y-test <span class="classifier-delimiter">:</span> <span class="classifier">Pandas Series or Numpy array</span></dt>
+<dd>For user, labels of inputted X_test data</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>pred</strong> (<em>array</em>) – prediction labels for the test data</li>
+<li><strong>score</strong> (<em>float</em>) – Accuracy score of the predictions, if true_label = True</li>
+<li><strong>cf</strong> (<em>array</em>) – Confusion matrix, as created by Scikit Learn’s Confusion matrix on the accuracy of the results, if
+true_label = True</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.RF_train">
+<code class="descname">RF_train</code><span class="sig-paren">(</span><em>n_estimators=15</em>, <em>max_depth=None</em>, <em>bootstrap=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.RF_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train the Random Forest model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n_estimators</strong> (<em>int</em>) – Number of Decision Trees in Random Forest model (optional, default is 15)</li>
+<li><strong>max_depth</strong> (<em>int</em>) – Maximum depth of the Decisions Trees in Random Forest model (optional, default is None</li>
+<li><strong>bootstrap</strong> (<em>bool</em>) – Whether bootstrap samples are used when building decision trees. If False, the whole datset is used to
+build each tree in the Random Forest (optional, default is True)</li>
+<li><strong>kwargs</strong> – <dl class="docutils">
+<dt>test_size <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>For split_data method, percentage repartition of testing data</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.clean_short_sub">
+<code class="descname">clean_short_sub</code><span class="sig-paren">(</span><em>min_df_size=300</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.clean_short_sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes entries in pandas data frame attribute pd_df that are continuous in time for less than min_df_size</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>min_df_size</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Minimum size of sub data frame that will be considered forward in the analysis (default is 300)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.data_prep">
+<code class="descname">data_prep</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.data_prep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quick data preparation from raw pandas data frame to feature vectors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – <dl class="docutils">
+<dt>slug_diff <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>Argument of label_slugs method. Minimum WHP differential value to be assumed a slug peak</dd>
+<dt>size_list <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>Argument of format_data method. Size of data frame to use for classification</dd>
+<dt>max_clean_count <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>Argument of format_data method. Maximum number of data frames to create that lead to a normal flow.</dd>
+<dt>split_num <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>Argument of feature_vector method. Number of splits the data frame</dd>
+<dt>time_predict <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>Argument of feature_vector method. Number of minutes before slug flow.</dd>
+<dt>percentage_significance <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>Argument of feature_vector method. For the significant feature, percentage value for which to state
+an increase/decrease in the data was significant compare to the original value.</dd>
+<dt>standardise <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd>Argument of feature_vector method. Whether to standardise the data or not.</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.feature_selection">
+<code class="descname">feature_selection</code><span class="sig-paren">(</span><em>feature_score</em>, <em>top_n=15</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.feature_selection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects the top_n most important features from the feature_score list</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>feature_score</strong> (<em>list of floats</em>) – List of feature scores, in order. As produced by the RF_train method</li>
+<li><strong>top_n</strong> (<em>int</em>) – Number of features to return</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>top_feature</strong> – List containing the names of the top_n features</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.feature_vector">
+<code class="descname">feature_vector</code><span class="sig-paren">(</span><em>split_num=5</em>, <em>time_predict=60</em>, <em>percentage_significance=0.1</em>, <em>standardise=True</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.feature_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform classification data into feature vectors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>split_num</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Number of time to split the data frame (default is 5)</li>
+<li><strong>time_predict</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Number of minutes to ignore at the end of the interval. This number will also be the number of minutes the
+classifier is trained to recognize a slug before it occurs (default is 60)</li>
+<li><strong>percentage_significance</strong> (<em>float</em><em> (</em><em>optional</em><em>)</em>) – For the significant feature, percentage value for which to state an increase/decrease in the data was
+significant compare to the original value. Must be below 1 (default is 0.10)</li>
+<li><strong>standardise</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – Whether to standardise the data or not (default is True)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.format_data">
+<code class="descname">format_data</code><span class="sig-paren">(</span><em>first_slug</em>, <em>size_list=240</em>, <em>max_clean_count=10000</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.format_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats data for classification algorithms. Splits down the sub_df_dict attribute’s data frames into size_list
+sized data frame. Data frames containing first slugs, as labelled in the method label_slugs, are split right
+before the occurrence of a first slug.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>first_slug</strong> (<em>list of list of int</em>) – List containing the sub list of first slug indices as computed by the method slug_check per sub data frames
+in the dictionary attribute</li>
+<li><strong>size_list</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Size of data frame to use for classification (default is 240)</li>
+<li><strong>max_clean_count</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Maximum number of data frames to create that lead to a normal, clean, flow. This is known by whether the
+first slug list is empty (default is 10000)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.jump">
+<code class="descname">jump</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.jump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Locates gap in the continuous data in the attribute pd_df, and groups and labels the continuous sets.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.label_slugs">
+<code class="descname">label_slugs</code><span class="sig-paren">(</span><em>slug_diff=3</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.label_slugs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds slug peaks in each data frame in the sub_df_dict attribute and creates the list of indices of slugs.
+Uses the slug_check method to then compute the list of indices of first slugs occurences, per data frame in
+the sub_df_dict attribute.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>slug_diff</strong> (<em>float</em><em> (</em><em>optional</em><em>)</em>) – Minimum differential value above which an increase in WHP is assumed to be a slug peak (default is 3.0).</li>
+<li><strong>kwargs</strong> – <dl class="docutils">
+<dt>dict_slug_def <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
+<dd>For slug_check method</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>first_slug</strong> (<em>list of list of int or list of list of datetime</em>) – List containing the sub list of first slug indices as computed by the method slug_check per sub data frames
+in the dictionary attribute</li>
+<li><strong>slugs</strong> (<em>list of list of int or list of list of datetime</em>) – List containing the sub list of slug peaks indices per sub data frames in the dictionary attribute</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.plot_X">
+<code class="descname">plot_X</code><span class="sig-paren">(</span><em>start=60, variables=['WH_P', 'DH_P'], scaled=True, n_examples=3</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.plot_X" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot n_examples each of the set size_list intervals leading to normal or slug flow</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Index of the df_list to start plotting from (default is 60)</li>
+<li><strong>variables</strong> (<em>list of str</em><em> (</em><em>optional</em><em>)</em>) – Names of variables to be plotted (default is [“WH_P”, “DH_P”])</li>
+<li><strong>scaled</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – Whether to scale variables to WH_P (default is True)</li>
+<li><strong>n_examples</strong> (<em>int</em><em>  (</em><em>optional</em><em>)</em>) – Number of examples to plot (default is 3)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">X data figure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Figure</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.plot_raw_slugs">
+<code class="descname">plot_raw_slugs</code><span class="sig-paren">(</span><em>variables=['WH_P', 'DH_P'], scaled=True, n_examples=10, first_sample=10, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.plot_raw_slugs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plotting functions to plot a set of n_examples raw sub_df_dict data frame, showing the slugs peaks and first
+slugs value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>variables</strong> (<em>list of str</em><em> (</em><em>optional</em><em>)</em>) – Names of variables to be plotted (default is [“WH_P”, “DH_P”])</li>
+<li><strong>scaled</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – Whether to scale variables to WH_P (default is True)</li>
+<li><strong>n_examples</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Number of examples to plot (default is 10)</li>
+<li><strong>first_sample</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Index of the sub_df_dict to start plotting from (default is 10)</li>
+<li><strong>kwargs</strong> – <dl class="docutils">
+<dt>slug_diff <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>Argument of label_slugs method. Minimum WHP differential value to be assumed a slug peak</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">raw slugs figure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Figure</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.slug_check">
+<code class="descname">slug_check</code><span class="sig-paren">(</span><em>slug_idx, key, dict_slug_def={'interval': [25, 25], 'time': [60, 240], 'value_diff': [2.0, 2.0]}</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.slug_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>From a list of indices of peaks in the data, return a list of of indices of first slug, based on
+the time since the last slug peak, the time between slug peaks and the value difference between slug peaks</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>slug_idx</strong> (<em>list of int</em>) – List of indices of all the peaks thought to be slugs occurring in the current data frame
+in the sub_df_dict attribute</li>
+<li><strong>key</strong> (<em>int</em>) – Index of current database in sub_df_dict</li>
+<li><strong>dict_slug_def</strong> (<em>dict</em><em> (</em><em>optional</em>) – Dictionary of values to define slugs, such a minimum time sine last first slug, minimum interval between
+two slug peaks, maximum WHP difference between peaks</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>first_slug_idx</strong> – List of indices of first slug peaks for current data frame in the dictionary attribute sub_df_dict</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.split_data">
+<code class="descname">split_data</code><span class="sig-paren">(</span><em>test_size=0.3</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.split_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split the data into a training and testing set</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_size</strong> (<em>float</em><em> (</em><em>optional</em><em>)</em>) – Percentage of the data to include in the training set (default is 0.3)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Detection.Slug_Detection.sub_data">
+<code class="descname">sub_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Detection.Slug_Detection.sub_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a dictionary of sub data frame that are continuous on time for over the min_df_size variable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – <dl class="docutils">
+<dt>min_df_size <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>For clean_short_sub method. Minimum size of sub data frame that will be considered forward in the analysis</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Slug_Detection</a><ul>
+<li><a class="reference internal" href="#id1">Slug_Detection</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/mods/Slug_Detection.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+      <div class="relbar-bottom">
+            
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Slug_Forecasting.html" title="Slug_Forecasting"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Flow_Recognition.html" title="Flow_Recognition"
+             >previous</a> &nbsp; &nbsp;</li>
+      <li><a href="../index.html">slugdetection 1.0.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, dapolak.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+      <!-- PSphinxTheme -->
+  </body>
+</html>

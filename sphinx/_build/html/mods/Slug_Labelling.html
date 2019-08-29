@@ -1,0 +1,263 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Slug_Labelling &#8212; slugdetection 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/p_sphinx_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/local_fonts.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/p_sphinx_theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Flow_Recognition" href="Flow_Recognition.html" />
+    <link rel="prev" title="Data_Engineering" href="Data_Engineering.html" /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+      <div class="relbar-top">
+            
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Flow_Recognition.html" title="Flow_Recognition"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Data_Engineering.html" title="Data_Engineering"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+      <li><a href="../index.html">slugdetection 1.0.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+      </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="slug-labelling">
+<h1>Slug_Labelling<a class="headerlink" href="#slug-labelling" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Slug_Labelling<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-slugdetection.Slug_Labelling"></span><p>Part of slugdetection package</p>
+<p>&#64;author: Deirdree A Polak
+github: dapolak</p>
+<dl class="class">
+<dt id="slugdetection.Slug_Labelling.Slug_Labelling">
+<em class="property">class </em><code class="descclassname">slugdetection.Slug_Labelling.</code><code class="descname">Slug_Labelling</code><span class="sig-paren">(</span><em>well</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Labelling.Slug_Labelling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clusters together flow types based on behaviour of variables using Unsupervised Learning</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>well</strong> (<em>Spark Data Frame</em>) – well data frame, includes continuous pressure and temperature data</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="slugdetection.Slug_Labelling.Slug_Labelling.Kmean_classification">
+<code class="descname">Kmean_classification</code><span class="sig-paren">(</span><em>n_labels</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Labelling.Slug_Labelling.Kmean_classification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classifies the data from the feature_vec attribute in n_labels clusters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n_labels</strong> (<em>int</em>) – Number of labels to sort the feature_vec data in (number of clusters)</li>
+<li><strong>verbose</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – Whether to print results (default is True)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Labelling.Slug_Labelling.feature_vector">
+<code class="descname">feature_vector</code><span class="sig-paren">(</span><em>window_size=20</em>, <em>step=5</em>, <em>standardise=True</em>, <em>keep_ts=False</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Labelling.Slug_Labelling.feature_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms the raw data into features vectors containing the all the data points in the time window set by
+the window_size. The feature vectors can then be used for classification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>window_size</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Length of time in minutes that will be considered in the feature vectors (default is 20)</li>
+<li><strong>step</strong> (<em>int</em><em> (</em><em>optional</em><em>)</em>) – Time step between each window of time. Can also be considered as the overlap in time. For example, if the
+step is set to 5, a feature vector will be created each five minutes of the continuous data set (default is 5)</li>
+<li><strong>standardise</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – Whether to standardise the data (default is True)</li>
+<li><strong>keep_ts</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – Whether to keep to timestamp column (default is False)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Labelling.Slug_Labelling.get_labels">
+<code class="descname">get_labels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Labelling.Slug_Labelling.get_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the labels indices of the feature vector data as clusterd by KMean_Classification method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>labels</strong> – List of labels. There will be as many different labels as the number of clusters selected
+for the Kmeans_classification method.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Labelling.Slug_Labelling.label_plot">
+<code class="descname">label_plot</code><span class="sig-paren">(</span><em>data_streams</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Labelling.Slug_Labelling.label_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plotting method to visualise how the feature_vec data was clustered along three features</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data_streams</strong> (<em>list of str</em>) – List of the three variables to plot the data against</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">3D kmeans figure</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Figure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="slugdetection.Slug_Labelling.Slug_Labelling.plot_feature_vectors">
+<code class="descname">plot_feature_vectors</code><span class="sig-paren">(</span><em>examples=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Slug_Labelling.Slug_Labelling.plot_feature_vectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plotting function to overlay the feature vectors clustered together. This visualisation can then assist users
+in labelling the flow types based on knowledge of variable behaviour</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>examples</strong> (<em>int</em>) – Number of feature vectors to plot in each visualisation</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Overlaid clusters figure</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Figure</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="slugdetection.Slug_Labelling.Slug_Labelling.unpack_feature_vector">
+<code class="descname">unpack_feature_vector</code><a class="headerlink" href="#slugdetection.Slug_Labelling.Slug_Labelling.unpack_feature_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>After the creation of the labels for each feature_vec, unpack the vectors into short continuous data frames
+of size window_size attribute for visualisation purposes.</p>
+<p>Engineers should be able to visually identify the flows</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>unpacked_list</strong> – List of size n_labels. Each entry in the list is a data frame containing the data for the windows of
+time clustered in one cluster.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of Pandas data frames</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Slug_Labelling</a><ul>
+<li><a class="reference internal" href="#id1">Slug_Labelling</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/mods/Slug_Labelling.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+      <div class="relbar-bottom">
+            
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Flow_Recognition.html" title="Flow_Recognition"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Data_Engineering.html" title="Data_Engineering"
+             >previous</a> &nbsp; &nbsp;</li>
+      <li><a href="../index.html">slugdetection 1.0.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, dapolak.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+      <!-- PSphinxTheme -->
+  </body>
+</html>
