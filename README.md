@@ -103,5 +103,5 @@ dbutils.library.installPyPI("pypipackage", version="version")
 
 ## License
 
-This package is licensed using a 
-[MIT](https://choosealicense.com/licenses/mit/)
+This package is licensed using an 
+[MIT](LICENSE) License
