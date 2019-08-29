@@ -7,13 +7,16 @@ slugdetection is a Python package created to automatically detect slug flow by c
 ## Author 
 
 Deirdree A. Polak
+
 Github: dapolak
+
 Email: deirdree.polak@gmail.com
+
 CID: 00973185
 
 ## Project Information
 
-This package was developped as part of the Applied Computational Sciences and Engineering MSc 2018-19 at Imperial College London and as part of an internship at Wintershall Dea GmbH in Germany. The project was part of the Independant Research Project ACSE-9 module.
+This package was developped as part of the Independant Research Project ACSE-9 module for the Applied Computational Sciences and Engineering MSc 2018-19 at Imperial College London and as part of an internship at Wintershall Dea GmbH in Germany.
 
 It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser from the Royal School of Mines, Imperial College London anf of Dr Meindert Dillen and Peter Kronberger from the Digital Transformation departement at Wintershall Dea GmbH. 
 
@@ -30,7 +33,22 @@ It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser 
 
 ### DataBricks Installation
 
-In the context of using the package in DataBricks to access the data, the wheel file `.whl` in the `\dist` folder is to be downloaded. 
+In the context of using the package in DataBricks to access the data, the wheel file `.whl` in the `\dist` folder is to be downloaded.
+
+In the WorkSpace tab of DataBricks, preferably in the same folder as your Python notebook, right click and select `Create>Library`. In the Create Library page, select `Upload` and `Python Whl` as shown below. The slugdetection package is now saved as a library on your local FileStores
+![Create_Library](https://github.com/msc-acse/acse-9-independent-research-project-dapolak/images/create_lib.PNG)
+
+![Library Source](https://github.com/msc-acse/acse-9-independent-research-project-dapolak/images/lib_path.PNG)
+
+There are two options from there. You must copy past the path to the library in the FileStore, by clicking Copy in the Source section and use the path to:
+- If admnistrator rights for the cluster you're running your notebook on are granted, you can install the library directly onto your cluster
+- Else, you can install the library onto your notebook directly by running the following code. Note that the cluster use cannot be optimised for ML:
+
+```python
+if "-ml-" not in runtime:
+  dbutils.library.install("dbfs:/FileStore/.../slugdetection.whl") # FileStore location and name of package
+  dbutils.library.restartPython()
+```
 
 ## Usage
 
