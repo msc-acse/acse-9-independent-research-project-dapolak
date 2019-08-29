@@ -18,7 +18,7 @@ CID: 00973185
 
 This package was developped as part of the Independant Research Project ACSE-9 module for the Applied Computational Sciences and Engineering MSc 2018-19 at Imperial College London and as part of an internship at Wintershall Dea GmbH in Germany.
 
-It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser from the Royal School of Mines, Imperial College London anf of Dr Meindert Dillen and Peter Kronberger from the Digital Transformation departement at Wintershall Dea GmbH. 
+It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser from the Royal School of Mines, Imperial College London anf of Dr Meindert Dillen and Peter Kronberger from Digital Transformation at Wintershall Dea GmbH. 
 
 ## Repository Structure
 
