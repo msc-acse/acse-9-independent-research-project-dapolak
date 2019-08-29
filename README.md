@@ -42,16 +42,16 @@ You can then use and run the package from a .py or Python notebook (no command l
 
 In the context of using the package in DataBricks to access the data, the wheel file `.whl` in the `\dist` folder is to be downloaded.
 
-In the WorkSpace tab of DataBricks, preferably in the same folder as your Python notebook, right click and select `Create > Library`. In the Create Library page, select `Upload` and `Python Whl` as shown below. The slugdetection package is now saved as a library on your local FileStores
+In the WorkSpace tab of DataBricks, preferably in the same folder as your Python notebook, right click and select `Create > Library`. In the Create Library page, select `Upload` for Library Source and `Python Whl` for Library Type as shown below. The slugdetection package is now saved as a library on your local FileStores
 
 
 <p align="center">
   <img src="images/create_lib.PNG"><br>
-  <b>Screenshot Create Librairy Page on DataBricks</b>
+  <b>Screenshot Create Library Page on DataBricks</b>
 </p>
 <p align="center">
   <img src="images/lib_path.PNG"><br>
-  <b>Librairy File on DataBricks</b>
+  <b>Library File on DataBricks</b>
 </p>
 
 
