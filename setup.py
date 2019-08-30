@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="slugdetection",
-    version="0.0.1",
+    version="1.0.0,
     author="dapolak",
     author_email="deirdree.polak@gmail.com",
     description="Slugging Detection package using feature engineering "
