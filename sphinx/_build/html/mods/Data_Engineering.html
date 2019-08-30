@@ -1,0 +1,250 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Data_Engineering &#8212; slugdetection 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/p_sphinx_theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/local_fonts.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../_static/p_sphinx_theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Slug_Labelling" href="Slug_Labelling.html" />
+    <link rel="prev" title="Welcome to slugdetection’s documentation!" href="../index.html" /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+      <div class="relbar-top">
+            
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Slug_Labelling.html" title="Slug_Labelling"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../index.html" title="Welcome to slugdetection’s documentation!"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+      <li><a href="../index.html">slugdetection 1.0.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+      </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="data-engineering">
+<h1>Data_Engineering<a class="headerlink" href="#data-engineering" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Data_Engineering<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-slugdetection.Data_Engineering.Data_Engineering"></span><p>Tools to crop and select the raw well data. Converts data from a Spark dataframe to Pandas.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param well:</th><td class="field-body">data frame containing the pressure, temperature and choke data from a well.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type well:</th><td class="field-body">Spark data frame</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="slugdetection.Data_Engineering.Data_Engineering.well_df">
+<code class="descclassname">slugdetection.Data_Engineering.Data_Engineering.</code><code class="descname">well_df</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.well_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>data frame containing all of the pressure, temperature and choke data from a well. None values have
+been dropped</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Spark data frame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="slugdetection.Data_Engineering.Data_Engineering.well_og">
+<code class="descclassname">slugdetection.Data_Engineering.Data_Engineering.</code><code class="descname">well_og</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.well_og" title="Permalink to this definition">¶</a></dt>
+<dd><p>original data frame copy, with None values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Spark data frame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="slugdetection.Data_Engineering.Data_Engineering.features">
+<code class="descclassname">slugdetection.Data_Engineering.Data_Engineering.</code><code class="descname">features</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.features" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of the features of the well, default “WH_P”, “DH_P”, “WH_T”, “DH_T” and “WH_choke”</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="slugdetection.Data_Engineering.Data_Engineering.thresholds">
+<code class="descclassname">slugdetection.Data_Engineering.Data_Engineering.</code><code class="descname">thresholds</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.thresholds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary with important features as keys, and their lower and upper thresholds as values. This is
+used for cropping out of range values. The set_thresholds method allows user to change or add values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">dictionary</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-slugdetection.Data_Engineering.confusion_mat">
+<span id="confusion-mat"></span><h2>confusion_mat<a class="headerlink" href="#module-slugdetection.Data_Engineering.confusion_mat" title="Permalink to this headline">¶</a></h2>
+<p>Simple confusion matrix plotting method. Inspired by Scikit Learn Confusionp Matrix plot example.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param cm:</th><td class="field-body"><p class="first">Confusion matrix as outputted by Scikit Learn Confusion Matrix method.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type cm:</th><td class="field-body"><p class="first">numpy array or list</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param labels:</th><td class="field-body"><p class="first">Labels to use on the plot of the Confusion Matrix. Must match number of rows in the confusion matrix.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type labels:</th><td class="field-body"><p class="first">list of str</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body"><p class="first">Title that will be printed above confusion matrix plot</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body"><p class="first">str (optional)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param cmap:</th><td class="field-body"><p class="first">Colour Map of confusion matrix</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type cmap:</th><td class="field-body"><p class="first">str (optional)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param kwargs:</th><td class="field-body"><dl class="first docutils">
+<dt>figsize <span class="classifier-delimiter">:</span> <span class="classifier">tuple of int or int</span></dt>
+<dd><p class="first last">Matplotlib key word to set size of plot</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body"><p class="first">confusion matrix figure</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body"><p class="first last">Figure</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Data_Engineering</a><ul>
+<li><a class="reference internal" href="#id1">Data_Engineering</a></li>
+<li><a class="reference internal" href="#module-slugdetection.Data_Engineering.confusion_mat">confusion_mat</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/mods/Data_Engineering.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+      <div class="relbar-bottom">
+            
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="Slug_Labelling.html" title="Slug_Labelling"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../index.html" title="Welcome to slugdetection’s documentation!"
+             >previous</a> &nbsp; &nbsp;</li>
+      <li><a href="../index.html">slugdetection 1.0.0 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, dapolak.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+      <!-- PSphinxTheme -->
+  </body>
+</html>
