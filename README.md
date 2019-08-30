@@ -22,10 +22,28 @@ It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser 
 
 ## Repository Structure
 
+`/Notebooks`: Contains `IRP_slugdetection_2019` which is a walk through of the slugpackage functionalities and `IRP_HyperParameterTuning` which shows some of the analysis performed during the development of the package
+
+
+`/dist` contains the dsitribution wheel file `.whl` which is required to use the package on DataBricks
+
+
+`/docs` contins all information regarding the creation of the documentation Github page
+
+
+`/images` contains images for the read me
+
+
+`/slugdetection` is the package created. It contains all the modules and modules tests sripts.
+
+
+`/sphinx` contains the sphinx doxumentation and buid pages
+
+
 
 ## Documentation
 
-Documentation for this project can be found [here](https://dapolak.github.io/acse-9-independent-research-project-dapolak/)
+Documentation for this project can be found at [dapolak.github.io](https://dapolak.github.io/acse-9-independent-research-project-dapolak/)
 
 ## Installation
 
