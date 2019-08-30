@@ -79,7 +79,7 @@ In the WorkSpace tab of DataBricks, preferably in the same folder as your Python
 
 
 There are two options from there. You must copy past the path to the library in the FileStore, by clicking Copy in the Source section and use the path to:
-- If admnistrator rights for the cluster you're running your notebook on are granted, you can install the library directly onto your cluster
+- If administrator rights for the cluster you're running your notebook on are granted, you can install the library directly onto your cluster
 - Else, you can install the library onto your notebook directly by running the following code. Note that the cluster used cannot be optimised for ML in order for this code to run:
 
 ```python
@@ -125,3 +125,7 @@ dbutils.library.installPyPI("pypipackage", version="version")
 
 This package is licensed using an 
 [MIT](LICENSE) License
+
+## Version
+
+Currently version 1.0.0
