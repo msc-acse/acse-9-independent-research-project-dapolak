@@ -40,6 +40,9 @@ It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser 
 `/sphinx` contains the sphinx documentation and build pages
 
 
+`read_files.py` can be used to concatenate the raw data files into one large files.
+
+
 
 ## Documentation
 
