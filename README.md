@@ -22,22 +22,22 @@ It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser 
 
 ## Repository Structure
 
-`/Notebooks`: Contains `IRP_slugdetection_2019` which is a walk through of the slugpackage functionalities and `IRP_HyperParameterTuning` which shows some of the analysis performed during the development of the package
+`/Notebooks`: Contains `IRP_slugdetection_2019` which is a walk through of the slugdetection package functionalities and `IRP_HyperParameterTuning` which shows some of the analysis performed during the development of the package
 
 
-`/dist` contains the dsitribution wheel file `.whl` which is required to use the package on DataBricks
+`/dist` contains the distribution wheel file `.whl` which is required to use the package on DataBricks
 
 
-`/docs` contins all information regarding the creation of the documentation Github page
+`/docs` contains all information regarding the creation of the documentation Github page
 
 
-`/images` contains images for the read me
+`/images` contains images for the README
 
 
 `/slugdetection` is the package created. It contains all the modules and modules tests sripts.
 
 
-`/sphinx` contains the sphinx doxumentation and buid pages
+`/sphinx` contains the sphinx documentation and build pages
 
 
 
