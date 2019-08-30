@@ -22,10 +22,28 @@ It was performed under the supervision of Prof Olivier Dubrule and Lukas Mosser 
 
 ## Repository Structure
 
+`/Notebooks`: Contains `IRP_slugdetection_2019` which is a walk through of the slugdetection package functionalities and `IRP_HyperParameterTuning` which shows some of the analysis performed during the development of the package
+
+
+`/dist` contains the distribution wheel file `.whl` which is required to use the package on DataBricks
+
+
+`/docs` contains all information regarding the creation of the documentation Github page
+
+
+`/images` contains images for the README
+
+
+`/slugdetection` is the package created. It contains all the modules and modules tests sripts.
+
+
+`/sphinx` contains the sphinx documentation and build pages
+
+
 
 ## Documentation
 
-Documentation for this project can be found [here](https://dapolak.github.io/acse-9-independent-research-project-dapolak/)
+Documentation for this project can be found at [dapolak.github.io](https://dapolak.github.io/acse-9-independent-research-project-dapolak/)
 
 ## Installation
 
@@ -61,7 +79,7 @@ In the WorkSpace tab of DataBricks, preferably in the same folder as your Python
 
 
 There are two options from there. You must copy past the path to the library in the FileStore, by clicking Copy in the Source section and use the path to:
-- If admnistrator rights for the cluster you're running your notebook on are granted, you can install the library directly onto your cluster
+- If administrator rights for the cluster you're running your notebook on are granted, you can install the library directly onto your cluster
 - Else, you can install the library onto your notebook directly by running the following code. Note that the cluster used cannot be optimised for ML in order for this code to run:
 
 ```python
@@ -107,3 +125,7 @@ dbutils.library.installPyPI("pypipackage", version="version")
 
 This package is licensed using an 
 [MIT](LICENSE) License
+
+## Version
+
+Currently version 1.0.0
