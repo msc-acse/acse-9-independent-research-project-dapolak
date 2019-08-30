@@ -58,24 +58,20 @@
 <h1>Data_Engineering<a class="headerlink" href="#data-engineering" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>Data_Engineering<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-slugdetection.Data_Engineering"></span><p>Part of slugdetection package</p>
-<p>&#64;author: Deirdree A Polak
-github: dapolak</p>
-<dl class="class">
-<dt id="slugdetection.Data_Engineering.Data_Engineering">
-<em class="property">class </em><code class="descclassname">slugdetection.Data_Engineering.</code><code class="descname">Data_Engineering</code><span class="sig-paren">(</span><em>well</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tools to crop and select the raw well data. Converts data from a Spark dataframe to Pandas.</p>
+<span class="target" id="module-slugdetection.Data_Engineering.Data_Engineering"></span><p>Tools to crop and select the raw well data. Converts data from a Spark dataframe to Pandas.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>well</strong> (<em>Spark data frame</em>) – data frame containing the pressure, temperature and choke data from a well.</td>
+<tr class="field-odd field"><th class="field-name">param well:</th><td class="field-body">data frame containing the pressure, temperature and choke data from a well.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type well:</th><td class="field-body">Spark data frame</td>
 </tr>
 </tbody>
 </table>
 <dl class="attribute">
 <dt id="slugdetection.Data_Engineering.Data_Engineering.well_df">
-<code class="descname">well_df</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.well_df" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">slugdetection.Data_Engineering.Data_Engineering.</code><code class="descname">well_df</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.well_df" title="Permalink to this definition">¶</a></dt>
 <dd><p>data frame containing all of the pressure, temperature and choke data from a well. None values have
 been dropped</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -90,7 +86,7 @@ been dropped</p>
 
 <dl class="attribute">
 <dt id="slugdetection.Data_Engineering.Data_Engineering.well_og">
-<code class="descname">well_og</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.well_og" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">slugdetection.Data_Engineering.Data_Engineering.</code><code class="descname">well_og</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.well_og" title="Permalink to this definition">¶</a></dt>
 <dd><p>original data frame copy, with None values</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -104,7 +100,7 @@ been dropped</p>
 
 <dl class="attribute">
 <dt id="slugdetection.Data_Engineering.Data_Engineering.features">
-<code class="descname">features</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.features" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">slugdetection.Data_Engineering.Data_Engineering.</code><code class="descname">features</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.features" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of the features of the well, default “WH_P”, “DH_P”, “WH_T”, “DH_T” and “WH_choke”</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -118,7 +114,7 @@ been dropped</p>
 
 <dl class="attribute">
 <dt id="slugdetection.Data_Engineering.Data_Engineering.thresholds">
-<code class="descname">thresholds</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.thresholds" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">slugdetection.Data_Engineering.Data_Engineering.</code><code class="descname">thresholds</code><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.thresholds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dictionary with important features as keys, and their lower and upper thresholds as values. This is
 used for cropping out of range values. The set_thresholds method allows user to change or add values.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -131,220 +127,53 @@ used for cropping out of range values. The set_thresholds method allows user to 
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="slugdetection.Data_Engineering.Data_Engineering.clean_choke">
-<code class="descname">clean_choke</code><span class="sig-paren">(</span><em>method='99'</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.clean_choke" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method to clean WH_choke variables values from the well_df Spark data frame attribute</p>
+</div>
+<div class="section" id="id2">
+<h2>Data_Engineering<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-slugdetection.Data_Engineering.confusion_mat"></span><p>Simple confusion matrix plotting method. Inspired by Scikit Learn Confusionp Matrix plot example.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>method</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – Method to clean out WH_choke values. “99” entails suppressing all the data rows where the choke is lower
-than 99%. “no_choke” entails setting to None all the rows where the WH_choke value is 0 or where it is non
-constant i.e. differential is larger than 1 or second differential is larger than 3 (default is ‘99’).</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="slugdetection.Data_Engineering.Data_Engineering.data_range">
-<code class="descname">data_range</code><span class="sig-paren">(</span><em>verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.data_range" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ensures variables within the dataframe well_df are within range, as set by the attribute thresholds. The out of
-range values are replaced by the previous in range value</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>verbose</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – whether to allow for verbose (default is True)</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="slugdetection.Data_Engineering.Data_Engineering.df_toPandas">
-<code class="descname">df_toPandas</code><span class="sig-paren">(</span><em>stats=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.df_toPandas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a copy of Spark data frame attribute well_df in Pandas format. Also calculates and stores the
-mean and standard deviations of each column in the Pandas data frame in the class attributes means and stds.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>stats</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – Bool asserting whether or not to calculate means and standard deviations of each columns/variable (default
-is True)</li>
-<li><strong>kwargs</strong> – <dl class="docutils">
-<dt>features <span class="classifier-delimiter">:</span> <span class="classifier">list of str</span></dt>
-<dd>feature names/ column headers to include in pandas data frame pd_df attribute</dd>
-</dl>
-</li>
-</ul>
+<tr class="field-odd field"><th class="field-name">param cm:</th><td class="field-body"><p class="first">Confusion matrix as outputted by Scikit Learn Confusion Matrix method.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pd_df</strong> – Pandas data frame of original well_df Spark data frame</p>
+<tr class="field-even field"><th class="field-name">type cm:</th><td class="field-body"><p class="first">numpy array or list</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Pandas data frame</p>
+<tr class="field-odd field"><th class="field-name">param labels:</th><td class="field-body"><p class="first">Labels to use on the plot of the Confusion Matrix. Must match number of rows in the confusion matrix.</p>
 </td>
 </tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="slugdetection.Data_Engineering.Data_Engineering.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>start=0</em>, <em>end=None</em>, <em>datetime_format='%d-%b-%y %H:%M'</em>, <em>title='Well Pressure and Temperature over time'</em>, <em>ax2_label='Temperature in C // Choke %'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simple plot function to plot the pd_df pandas data frame class attribute.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>start</strong> (<em>int</em><em> or </em><em>str</em><em> (</em><em>optional</em><em>)</em>) – Index or date at which to start plotting the data (default is 0)</li>
-<li><strong>end</strong> (<em>int</em><em> or </em><em>str</em><em> (</em><em>optional</em><em>)</em>) – Index or date at which to stop plotting the data (default is None)</li>
-<li><strong>datetime_format</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – C standard data format for datetime (default is ‘%d-%b-%y %H:%M’)</li>
-<li><strong>title</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – Plot title (default is “Well Pressure and Temperature over time”)</li>
-<li><strong>ax2_label</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – Label for second axis, for non pressure features (default is “Temperature in C // Choke %”)</li>
-<li><strong>kwargs</strong> – <dl class="docutils">
-<dt>features: list of str</dt>
-<dd>List of features to include in the plot</dd>
-</dl>
-</li>
-</ul>
+<tr class="field-even field"><th class="field-name">type labels:</th><td class="field-body"><p class="first">list of str</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">data plot figure</p>
+<tr class="field-odd field"><th class="field-name">param title:</th><td class="field-body"><p class="first">Title that will be printed above confusion matrix plot</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Figure</p>
+<tr class="field-even field"><th class="field-name">type title:</th><td class="field-body"><p class="first">str (optional)</p>
 </td>
 </tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="slugdetection.Data_Engineering.Data_Engineering.reset_well_df">
-<code class="descname">reset_well_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.reset_well_df" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resets Spark data frame attribute well_df to original state by overriding the well_df attribute</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="slugdetection.Data_Engineering.Data_Engineering.set_thresholds">
-<code class="descname">set_thresholds</code><span class="sig-paren">(</span><em>variable</em>, <em>max_</em>, <em>min_</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.set_thresholds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the thresholds value of a variable</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>variable</strong> (<em>str</em>) – Name of variable, for example “WH_P”</li>
-<li><strong>max</strong> (<em>float</em>) – Upper threshold of variable</li>
-<li><strong>min</strong> (<em>float</em>) – Lower threshold of variable</li>
-</ul>
+<tr class="field-odd field"><th class="field-name">param cmap:</th><td class="field-body"><p class="first">Colour Map of confusion matrix</p>
 </td>
 </tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="slugdetection.Data_Engineering.Data_Engineering.shape">
-<code class="descname">shape</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Describes the shape of the Spark data frame well_df, with number of rows and number of columns</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>shape</strong> – number of rows, number of columns</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int, int</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="slugdetection.Data_Engineering.Data_Engineering.standardise">
-<code class="descname">standardise</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.standardise" title="Permalink to this definition">¶</a></dt>
-<dd><p>Standardises the data based on the attributes means and stds as calculated when the original dataframe was
-converted to Pandas.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>df</strong> (<em>Pandas data frame</em>) – Input data frame to be standardised</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>df</strong> – Input data frame standardised</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Pandas data frame</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="slugdetection.Data_Engineering.Data_Engineering.stats">
-<code class="descname">stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.stats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Describes the data in terms of the most common statistics, such as mean, std, max, min and count
-:returns: <strong>stats</strong> – Stats of data frame attribute well_df
-:rtype: Spark DataFrame</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="slugdetection.Data_Engineering.Data_Engineering.timeframe">
-<code class="descname">timeframe</code><span class="sig-paren">(</span><em>start='01-JAN-01 00:01'</em>, <em>end='01-JUL-19 00:01'</em>, <em>date_format='dd-MMM-yy HH:mm'</em>, <em>datetime_format='%d-%b-%y %H:%M'</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.Data_Engineering.timeframe" title="Permalink to this definition">¶</a></dt>
-<dd><p>For Spark DataFrame well_df attribute, crops the data to the inputted start and end date</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>start</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – Wanted start date of cropped data frame (default is “01-JAN-01 00:01”)</li>
-<li><strong>end</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – Wanted end date of cropped data frame (default is “01-JAN-19 00:01”)</li>
-<li><strong>date_format</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – String format of inputted dates (default is “dd-MMM-yy HH:mm”)</li>
-<li><strong>datetime_format</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – C standard data format for datetime (default is ‘%d-%b-%y %H:%M’)</li>
-</ul>
+<tr class="field-even field"><th class="field-name">type cmap:</th><td class="field-body"><p class="first">str (optional)</p>
 </td>
 </tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="slugdetection.Data_Engineering.confusion_mat">
-<code class="descclassname">slugdetection.Data_Engineering.</code><code class="descname">confusion_mat</code><span class="sig-paren">(</span><em>cm</em>, <em>labels</em>, <em>title='Confusion Matrix'</em>, <em>cmap='RdYlGn'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#slugdetection.Data_Engineering.confusion_mat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simple confusion matrix plotting method. Inspired by Scikit Learn Confusionp Matrix plot example.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cm</strong> (<em>numpy array</em><em> or </em><em>list</em>) – Confusion matrix as outputted by Scikit Learn Confusion Matrix method.</li>
-<li><strong>labels</strong> (<em>list of str</em>) – Labels to use on the plot of the Confusion Matrix. Must match number of rows in the confusion matrix.</li>
-<li><strong>title</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – Title that will be printed above confusion matrix plot</li>
-<li><strong>cmap</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – Colour Map of confusion matrix</li>
-<li><strong>kwargs</strong> – <dl class="docutils">
+<tr class="field-odd field"><th class="field-name">param kwargs:</th><td class="field-body"><dl class="first docutils">
 <dt>figsize <span class="classifier-delimiter">:</span> <span class="classifier">tuple of int or int</span></dt>
-<dd>Matplotlib key word to set size of plot</dd>
+<dd><p class="first last">Matplotlib key word to set size of plot</p>
+</dd>
 </dl>
-</li>
-</ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">confusion matrix figure</p>
+<tr class="field-even field"><th class="field-name">returns:</th><td class="field-body"><p class="first">confusion matrix figure</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Figure</p>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body"><p class="first last">Figure</p>
 </td>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
 </div>
 </div>
 
@@ -358,6 +187,7 @@ converted to Pandas.</p>
     <ul>
 <li><a class="reference internal" href="#">Data_Engineering</a><ul>
 <li><a class="reference internal" href="#id1">Data_Engineering</a></li>
+<li><a class="reference internal" href="#id2">Data_Engineering</a></li>
 </ul>
 </li>
 </ul>
