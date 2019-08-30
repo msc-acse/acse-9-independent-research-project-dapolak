@@ -7,8 +7,8 @@ Data_Engineering
    :members:
    
 
-Data_Engineering
-----------------
+confusion_mat
+-------------
 .. automodule:: slugdetection.Data_Engineering.confusion_mat
    :members:
    
