@@ -200,7 +200,7 @@ class Slug_Forecasting:
     def error_metrics_plot(self, error):
         """
         Plots infographics on the error of the ARIMA model regression
-        
+
         Parameters
         ----------
         error : str

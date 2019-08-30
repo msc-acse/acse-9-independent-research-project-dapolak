@@ -44,7 +44,7 @@ class Data_Engineering:
                            "DH_P": [90, 150],
                            "WH_T": [0, 100],
                            "DH_T": [75, 95],
-                           "WH_choke": [-1000, 10000]}
+                           "WH_choke": [-1000, 1000]}
 
     def stats(self):
         """
